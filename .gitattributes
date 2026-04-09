@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+*.css linguist-generated
+*.html linguist-generated
+**/Cargo.lock linguist-generated
+
+*.png binary
+*.ico binary
