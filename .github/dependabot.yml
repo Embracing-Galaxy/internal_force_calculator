@@ -1,0 +1,27 @@
+version: 2
+updates:
+  # Maintain Rust dependencies
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      rust-deps:
+        patterns:
+          - "*"
+
+  # Maintain Frontend dependencies
+  - package-ecosystem: "npm"
+    directory: "/calculator_ui"
+    schedule:
+      interval: "monthly"
+    groups:
+      npm-deps:
+        patterns:
+          - "*"
+
+  # Maintain GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
