@@ -75,10 +75,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }},wasm32-unknown-unknown
-
-      - name: Install wasm-bindgen-cli
-        shell: bash
-        run: cargo install wasm-bindgen-cli
+          components: wasm-bindgen-cli
 
       - uses: Swatinem/rust-cache@v2
         with:
