@@ -1,4 +1,3 @@
-use calculator_core;
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::{JsError, JsValue};
 

@@ -3,11 +3,7 @@ use calculator_core::PrincipalMomentOutput;
 type Output = PrincipalMomentOutput;
 
 #[tauri::command]
-fn get_principal_moments(
-    equation: &str,
-    ny: usize,
-    nz: usize,
-) -> Result<Output, String> {
+fn get_principal_moments(equation: &str, ny: usize, nz: usize) -> Result<Output, String> {
     calculator_core::principal_moments_and_transform(equation, ny, nz)
 }
 

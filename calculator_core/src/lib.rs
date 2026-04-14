@@ -18,10 +18,10 @@ pub struct PrincipalMomentOutput {
 ///
 /// # 参数
 /// * `equation` - 隐式方程，表示区域内部满足 `f(y, z) <= 0`。
-///                例如 `"y^2/4 + z^2 - 1"` 表示椭圆内部。
-///                支持基本运算符 `+, -, *, /, %, ^` 和函数 `sqrt, abs, exp, ln, sin, cos, tan,
-///                asin, acos, atan, atan2, sinh, cosh, tanh, asinh, acosh, atanh,
-///                floor, ceil, round signum` 等。
+///   例如 `"y^2/4 + z^2 - 1"` 表示椭圆内部。
+///   支持基本运算符 `+, -, *, /, %, ^` 和函数 `sqrt, abs, exp, ln, sin, cos, tan,
+///   asin, acos, atan, atan2, sinh, cosh, tanh, asinh, acosh, atanh,
+///   floor, ceil, round signum` 等。
 /// * `nx` - y 方向网格划分数（越大精度越高，推荐 200~500）。
 /// * `ny` - z 方向网格划分数。
 ///
