@@ -7,7 +7,7 @@
     "dev": "vite",
     "dev:wasm": "pnpm build:wasm && vite",
     "build": "tsc && vite build",
-    "build:wasm": "cargo build -p calculator_wasm --target wasm32-unknown-unknown --release && wasm-bindgen ../target/wasm32-unknown-unknown/release/calculator_wasm.wasm --out-dir ../calculator_wasm/pkg --target bundler",
+    "build:wasm": "cargo build -p calculator_wasm --target wasm32-unknown-unknown --release && wasm-bindgen ../target/wasm32-unknown-unknown/release/calculator_wasm.wasm --out-dir ../calculator_wasm/pkg",
     "preview": "vite preview",
     "tauri": "tauri"
   },
