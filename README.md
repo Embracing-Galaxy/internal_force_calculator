@@ -77,12 +77,14 @@ pnpm tauri dev
 
 ## 部署说明
 
-如果在 web 服务器的非根目录下部署，需要修改以下文件中的路径配置：
+### 构建时传入部署目录参数
 
-1. **vite.config.ts**：修改 `base` 选项
-   - 文件路径：`calculator_ui/vite.config.ts`
-   - 将 `base: '/ifc'` 改为对应目录
+现在支持在构建时通过环境变量传入部署目录，无需修改代码：
 
-2. **App.tsx**：修改 `basename` 选项
-   - 文件路径：`calculator_ui/src/App.tsx`
-   - 将 `<BrowserRouter basename="/ifc">` 改为对应目录
+```bash
+# 构建时指定部署目录为 /my-app
+VITE_BASE_PATH=/my-app pnpm build
+
+# 构建桌面应用时指定部署目录
+VITE_BASE_PATH=/my-app pnpm tauri build
+```

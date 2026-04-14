@@ -40,7 +40,6 @@ if (!fs.existsSync(wasmPkgPath)) {
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
     plugins: [react(), tailwindcss(), wasm(), topLevelAwait()],
-    base: '/ifc',
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"),

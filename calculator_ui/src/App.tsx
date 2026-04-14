@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 function App() {
   return (
-    <BrowserRouter basename="/ifc">
+    <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
       <Routes>
         <Route path="/" element={<AppLayout />}>
           <Route index element={<BeamCalculator />} />
