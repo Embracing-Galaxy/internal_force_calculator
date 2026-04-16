@@ -1,12 +1,17 @@
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { BeamCanvas } from "@/components/render/BeamCanvas.tsx";
-import { ShearForceDiagram } from "@/components/render/diagram/ShearForceDiagram";
 import { BendingMomentDiagram } from "@/components/render/diagram/BendingMomentDiagram";
+import { ShearForceDiagram } from "@/components/render/diagram/ShearForceDiagram";
 import BeamSettingsBar from "@/components/settings/beam/BeamSettingsBar.tsx";
-import { Beam, Load, SolverError, SupportType } from "@/types/beam";
+import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { sumForces } from "@/lib/beam-calculations";
+import {
+  type Beam,
+  type Load,
+  type SolverError,
+  SupportType,
+} from "@/types/beam";
 
 export default function BeamCalculator() {
   const [beam, setBeam] = useState<Beam>({
@@ -43,23 +48,35 @@ export default function BeamCalculator() {
 
   return (
     <div className="flex w-full">
-        <SidebarInset className="flex-1 h-screen">
-          <SidebarTrigger className="-mr-1 ml-auto mt-1 rotate-180 z-10" />
-          {!result ? (
-            // 没有结果时，BeamCanvas 占满整个空间
-            <BeamCanvas beam={beam} error={error} className="h-full" />
-          ) : (
-            // 有结果时，左右布局
-            <div className="h-full flex">
-              <BeamCanvas beam={beam} error={error} className="w-1/2 h-full" />
-              <div className="w-1/2 h-full flex flex-col">
-                <ShearForceDiagram beam={beam} loads={result} className="flex-1" />
-                <BendingMomentDiagram beam={beam} loads={result} className="flex-1" />
-              </div>
+      <SidebarInset className="flex-1 h-screen">
+        <SidebarTrigger className="-mr-1 ml-auto mt-1 rotate-180 z-10" />
+        {!result ? (
+          // 没有结果时，BeamCanvas 占满整个空间
+          <BeamCanvas beam={beam} error={error} className="h-full" />
+        ) : (
+          // 有结果时，左右布局
+          <div className="h-full flex">
+            <BeamCanvas beam={beam} error={error} className="w-1/2 h-full" />
+            <div className="w-1/2 h-full flex flex-col">
+              <ShearForceDiagram
+                beam={beam}
+                loads={result}
+                className="flex-1"
+              />
+              <BendingMomentDiagram
+                beam={beam}
+                loads={result}
+                className="flex-1"
+              />
             </div>
-          )}
-        </SidebarInset >
-        <BeamSettingsBar beam={beam} onBeamChange={setBeam} onCalculate={calculate} />
+          </div>
+        )}
+      </SidebarInset>
+      <BeamSettingsBar
+        beam={beam}
+        onBeamChange={setBeam}
+        onCalculate={calculate}
+      />
     </div>
   );
 }

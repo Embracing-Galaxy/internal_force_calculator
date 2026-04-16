@@ -1,19 +1,19 @@
-import {defineConfig} from "vite";
+import fs from "node:fs";
+import path from "node:path";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
-import fs from "fs";
+import { defineConfig } from "vite";
 import topLevelAwait from "vite-plugin-top-level-await";
 import wasm from "vite-plugin-wasm";
 
 const host = process.env.TAURI_DEV_HOST;
 const wasmPkgPath = path.resolve(
-    __dirname,
-    "../calculator_wasm/pkg/calculator_wasm.js",
+  __dirname,
+  "../calculator_wasm/pkg/calculator_wasm.js",
 );
 
 if (!fs.existsSync(wasmPkgPath)) {
-    console.error(`
+  console.error(`
 \x1b[31m╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         WASM MODULE NOT FOUND                                ║
 ╠══════════════════════════════════════════════════════════════════════════════╣\x1b[0m
@@ -34,38 +34,38 @@ if (!fs.existsSync(wasmPkgPath)) {
 
 \x1b[31m╚══════════════════════════════════════════════════════════════════════════════╝\x1b[0m
 `);
-    process.exit(1);
+  process.exit(1);
 }
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-    plugins: [react(), tailwindcss(), wasm(), topLevelAwait()],
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "./src"),
-            calculator_wasm: wasmPkgPath,
-        },
+  plugins: [react(), tailwindcss(), wasm(), topLevelAwait()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+      calculator_wasm: wasmPkgPath,
     },
+  },
 
-    // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
-    //
-    // 1. prevent vite from obscuring rust errors
-    clearScreen: false,
-    // 2. tauri expects a fixed port, fail if that port is not available
-    server: {
-        port: 3000,
-        strictPort: true,
-        host: host || false,
-        hmr: host
-            ? {
-                protocol: "ws",
-                host,
-                port: 1421,
-            }
-            : undefined,
-        watch: {
-            // 3. tell vite to ignore watching `src-tauri`
-            ignored: ["**/src-tauri/**"],
-        },
+  // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
+  //
+  // 1. prevent vite from obscuring rust errors
+  clearScreen: false,
+  // 2. tauri expects a fixed port, fail if that port is not available
+  server: {
+    port: 3000,
+    strictPort: true,
+    host: host || false,
+    hmr: host
+      ? {
+          protocol: "ws",
+          host,
+          port: 1421,
+        }
+      : undefined,
+    watch: {
+      // 3. tell vite to ignore watching `src-tauri`
+      ignored: ["**/src-tauri/**"],
     },
+  },
 }));

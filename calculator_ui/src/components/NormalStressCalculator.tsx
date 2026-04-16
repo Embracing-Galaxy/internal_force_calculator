@@ -1,41 +1,52 @@
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { SidebarInset } from "@/components/ui/sidebar";
-import SectionSettingsBar from "@/components/settings/normal/SectionSettingsBar";
-import { calculatorService, PrincipalMomentsOutput } from "@/services";
 import NormalStressFormula from "@/components/NormalStressFormula";
+import SectionSettingsBar from "@/components/settings/normal/SectionSettingsBar";
+import { SidebarInset } from "@/components/ui/sidebar";
+import { calculatorService, type PrincipalMomentsOutput } from "@/services";
 
 export default function NormalStressCalculator() {
-    const [formula, setFormula] = useState("");
-    const [force, setForce] = useState({ x: 0, y: 0, z: 0 });
-    const [forcePoint, setForcePoint] = useState({ y: 0, z: 0 });
-    const [results, setResults] = useState<PrincipalMomentsOutput | null>(null);
-    const calculate = useCallback(async () => {
-        try {
-            const result = await calculatorService.getPrincipalMoments(
-                formula, 400, 400
-            );
-            toast.success("计算成功");
-            setResults(result);
-        } catch (e) {
-            toast.error(`计算出错 ${e}`);
+  const [formula, setFormula] = useState("");
+  const [force, setForce] = useState({ x: 0, y: 0, z: 0 });
+  const [forcePoint, setForcePoint] = useState({ y: 0, z: 0 });
+  const [results, setResults] = useState<PrincipalMomentsOutput | null>(null);
+  const calculate = useCallback(async () => {
+    try {
+      const result = await calculatorService.getPrincipalMoments(
+        formula,
+        400,
+        400,
+      );
+      toast.success("计算成功");
+      setResults(result);
+    } catch (e) {
+      toast.error(`计算出错 ${e}`);
+    }
+  }, [formula]);
+
+  return (
+    <div className="flex h-screen">
+      <SidebarInset className="flex-1 h-screen">
+        <NormalStressFormula
+          calculateResult={results}
+          force={force}
+          forcePoint={forcePoint}
+        />
+      </SidebarInset>
+
+      <SectionSettingsBar
+        onChangeFormula={setFormula}
+        onChangeForceX={(value) => setForce((prev) => ({ ...prev, x: value }))}
+        onChangeForceY={(value) => setForce((prev) => ({ ...prev, y: value }))}
+        onChangeForceZ={(value) => setForce((prev) => ({ ...prev, z: value }))}
+        onChangeForcePointY={(value) =>
+          setForcePoint((prev) => ({ ...prev, y: value }))
         }
-    }, [formula]);
-
-    return (
-        <div className="flex h-screen">
-            <SidebarInset className="flex-1 h-screen">
-                <NormalStressFormula calculateResult={results} force={force} forcePoint={forcePoint} />
-            </SidebarInset>
-
-            <SectionSettingsBar
-                onChangeFormula={setFormula}
-                onChangeForceX={(value) => setForce(prev => ({ ...prev, x: value }))}
-                onChangeForceY={(value) => setForce(prev => ({ ...prev, y: value }))}
-                onChangeForceZ={(value) => setForce(prev => ({ ...prev, z: value }))}
-                onChangeForcePointY={(value) => setForcePoint(prev => ({ ...prev, y: value }))}
-                onChangeForcePointZ={(value) => setForcePoint(prev => ({ ...prev, z: value }))}
-                onCalculate={calculate} />
-        </div>
-    );
+        onChangeForcePointZ={(value) =>
+          setForcePoint((prev) => ({ ...prev, z: value }))
+        }
+        onCalculate={calculate}
+      />
+    </div>
+  );
 }

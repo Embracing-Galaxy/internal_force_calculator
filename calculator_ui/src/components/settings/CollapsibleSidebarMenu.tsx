@@ -1,38 +1,44 @@
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
-    SidebarMenu,
-    SidebarMenuItem,
-    SidebarMenuButton,
-    SidebarMenuSub,
-} from '@/components/ui/sidebar.tsx';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible.tsx';
-import { ChevronRight } from 'lucide-react';
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible.tsx";
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+} from "@/components/ui/sidebar.tsx";
 
 interface CollapsibleSidebarMenuProps {
-    icon: LucideIcon;
-    title: string;
-    children: React.ReactNode;
+  icon: LucideIcon;
+  title: string;
+  children: React.ReactNode;
 }
 
-export function CollapsibleSidebarMenu({ icon: Icon, title, children }: CollapsibleSidebarMenuProps) {
-    return (
-        <SidebarMenu>
-            <Collapsible asChild defaultOpen={true} className="group/collapsible">
-                <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
-                        <SidebarMenuButton tooltip={title}>
-                            <Icon />
-                            <span>{title}</span>
-                            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                        </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                        <SidebarMenuSub>
-                            {children}
-                        </SidebarMenuSub>
-                    </CollapsibleContent>
-                </SidebarMenuItem>
-            </Collapsible>
-        </SidebarMenu>
-    );
+export function CollapsibleSidebarMenu({
+  icon: Icon,
+  title,
+  children,
+}: CollapsibleSidebarMenuProps) {
+  return (
+    <SidebarMenu>
+      <Collapsible asChild defaultOpen={true} className="group/collapsible">
+        <SidebarMenuItem>
+          <CollapsibleTrigger asChild>
+            <SidebarMenuButton tooltip={title}>
+              <Icon />
+              <span>{title}</span>
+              <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+            </SidebarMenuButton>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <SidebarMenuSub>{children}</SidebarMenuSub>
+          </CollapsibleContent>
+        </SidebarMenuItem>
+      </Collapsible>
+    </SidebarMenu>
+  );
 }

@@ -1,7 +1,7 @@
+import { BrowserRouter, Route, Routes } from "react-router";
 import AppLayout from "@/components/AppLayout";
 import BeamCalculator from "@/components/BeamCalculator";
 import NormalStressCalculator from "@/components/NormalStressCalculator";
-import { BrowserRouter, Route, Routes } from "react-router";
 
 function App() {
   return (
