@@ -31,3 +31,10 @@ jobs:
         run: |
           cargo fmt --check
           cargo clippy
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          working-dir: calculator_ui
+      - name: Run Biome
+        working-directory: calculator_ui
+        run: biome ci .
