@@ -1,4 +1,4 @@
-import { type Beam, type SupportConfig, SupportType } from "@/types/beam.ts";
+import { type Beam, type SupportConfig, SupportType } from "@/types/beam";
 
 interface RenderContext {
   ctx: CanvasRenderingContext2D;

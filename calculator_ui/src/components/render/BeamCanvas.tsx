@@ -1,8 +1,9 @@
+import type React from "react";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import type { Beam } from "@/types/beam.ts";
-import { BeamRenderer } from "./BeamRenderer.tsx";
-import { SupportRenderer } from "./SupportRenderer.tsx";
+import type { Beam } from "@/types/beam";
+import { BeamRenderer } from "./BeamRenderer";
+import { SupportRenderer } from "./SupportRenderer";
 
 interface BeamCanvasProps extends React.ComponentProps<"div"> {
   beam: Beam;

@@ -1,10 +1,10 @@
 import { ArrowDownCircle, Plus, RotateCcw } from "lucide-react";
 import { nanoid } from "nanoid";
-import { Button } from "@/components/ui/button.tsx";
-import { SidebarMenuSubItem } from "@/components/ui/sidebar.tsx";
-import { type Load, LoadType } from "@/types/beam.ts";
-import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu.tsx";
-import { LoadItem } from "./LoadItem.tsx";
+import { Button } from "@/components/ui/button";
+import { SidebarMenuSubItem } from "@/components/ui/sidebar";
+import { type Load, LoadType } from "@/types/beam";
+import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
+import { LoadItem } from "./LoadItem";
 
 interface LoadListProps {
   loads: Load[];

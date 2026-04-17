@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-} from "@/components/ui/sidebar.tsx";
-import { type Beam, type Load, SupportType } from "@/types/beam.ts";
-import { BeamSettings } from "./BeamSettings.tsx";
-import { LoadList } from "./LoadList.tsx";
-import { SupportSettings } from "./SupportSettings.tsx";
+} from "@/components/ui/sidebar";
+import { type Beam, type Load, SupportType } from "@/types/beam";
+import { BeamSettings } from "./BeamSettings";
+import { LoadList } from "./LoadList";
+import { SupportSettings } from "./SupportSettings";
 
 interface SettingsBarProps {
   beam: Beam;

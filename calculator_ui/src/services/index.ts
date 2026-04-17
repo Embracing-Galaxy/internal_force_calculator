@@ -1,6 +1,6 @@
-import type { ICalculatorService } from "./interface.ts";
-import TauriCalculatorService from "./tauri.ts";
-import WebCalculatorService from "./wasm.ts";
+import type { ICalculatorService } from "./interface";
+import TauriCalculatorService from "./tauri";
+import WebCalculatorService from "./wasm";
 
 interface TauriWindow extends Window {
   __TAURI_INTERNALS__?: unknown;
@@ -16,4 +16,4 @@ export const isTauri =
 export const calculatorService: ICalculatorService = isTauri
   ? new TauriCalculatorService()
   : new WebCalculatorService();
-export * from "./interface.ts";
+export * from "./interface";

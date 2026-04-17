@@ -1,18 +1,18 @@
 import { AlertCircle, Anchor } from "lucide-react";
 import type React from "react";
 import { useMemo } from "react";
-import { Input } from "@/components/ui/input.tsx";
-import { Label } from "@/components/ui/label.tsx";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select.tsx";
-import { SidebarMenuSubItem } from "@/components/ui/sidebar.tsx";
-import { type Beam, SupportType } from "@/types/beam.ts";
-import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu.tsx";
+} from "@/components/ui/select";
+import { SidebarMenuSubItem } from "@/components/ui/sidebar";
+import { type Beam, SupportType } from "@/types/beam";
+import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
 
 interface SupportConfigProps {
   label: string;
