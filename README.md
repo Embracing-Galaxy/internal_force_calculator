@@ -43,7 +43,7 @@ pnpm install
 
 ```bash
 cd calculator_wasm
-cargo build -p calculator_wasm --target wasm32-unknown-unknown --release && wasm-bindgen ../target/wasm32-unknown-unknown/release/calculator_wasm.wasm --out-dir pkg
+wasm-pack build
 ```
 
 #### 构建桌面应用

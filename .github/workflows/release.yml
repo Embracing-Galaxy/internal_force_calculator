@@ -75,7 +75,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }},wasm32-unknown-unknown
-          components: wasm-bindgen-cli
+          components: wasm-pack
 
       - uses: Swatinem/rust-cache@v2
         with:
