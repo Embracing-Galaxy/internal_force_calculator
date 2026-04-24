@@ -67,10 +67,6 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: calculator_ui/pnpm-lock.yaml
 
-      - name: Install Frontend Dependencies
-        working-directory: calculator_ui
-        run: pnpm install --no-optional
-
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -123,6 +119,10 @@ jobs:
       - name: Build WASM
         working-directory: calculator_wasm
         run: wasm-pack build --release
+
+      - name: Install Frontend Dependencies
+        working-directory: calculator_ui
+        run: pnpm install
 
       - name: Build Desktop
         working-directory: calculator_ui

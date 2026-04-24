@@ -23,6 +23,9 @@ importers:
       '@tauri-apps/plugin-opener':
         specifier: ^2
         version: 2.5.3
+      calculator_wasm:
+        specifier: file:../calculator_wasm/pkg
+        version: file:../calculator_wasm/pkg
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -102,10 +105,6 @@ importers:
       vite:
         specifier: ^8.0.9
         version: 8.0.9(@types/node@25.6.0)(jiti@2.6.1)
-    optionalDependencies:
-      calculator_wasm:
-        specifier: file:../calculator_wasm/pkg
-        version: file:../calculator_wasm/pkg
 
 packages:
 
@@ -4520,8 +4519,7 @@ snapshots:
 
   bytes@3.1.2: {}
 
-  calculator_wasm@file:../calculator_wasm/pkg:
-    optional: true
+  calculator_wasm@file:../calculator_wasm/pkg: {}
 
   call-bind-apply-helpers@1.0.2:
     dependencies:
