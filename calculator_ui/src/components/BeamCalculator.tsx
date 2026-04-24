@@ -4,6 +4,11 @@ import { BeamCanvas } from "@/components/render/BeamCanvas";
 import { BendingMomentDiagram } from "@/components/render/diagram/BendingMomentDiagram";
 import { ShearForceDiagram } from "@/components/render/diagram/ShearForceDiagram";
 import BeamSettingsBar from "@/components/settings/beam/BeamSettingsBar";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { sumForces } from "@/lib/beam-calculations";
 import {
@@ -55,21 +60,26 @@ export default function BeamCalculator() {
           <BeamCanvas beam={beam} error={error} className="h-full" />
         ) : (
           // 有结果时，左右布局
-          <div className="h-full flex">
-            <BeamCanvas beam={beam} error={error} className="w-1/2 h-full" />
-            <div className="w-1/2 h-full flex flex-col">
-              <ShearForceDiagram
-                beam={beam}
-                loads={result}
-                className="flex-1"
-              />
-              <BendingMomentDiagram
-                beam={beam}
-                loads={result}
-                className="flex-1"
-              />
-            </div>
-          </div>
+          <ResizablePanelGroup>
+            <ResizablePanel defaultSize={50}>
+              <BeamCanvas beam={beam} error={error} className="h-full" />
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel defaultSize={50}>
+              <div className="h-full flex flex-col">
+                <ShearForceDiagram
+                  beam={beam}
+                  loads={result}
+                  className="flex-1"
+                />
+                <BendingMomentDiagram
+                  beam={beam}
+                  loads={result}
+                  className="flex-1"
+                />
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
         )}
       </SidebarInset>
       <BeamSettingsBar
