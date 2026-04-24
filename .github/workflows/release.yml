@@ -69,7 +69,7 @@ jobs:
 
       - name: Install Frontend Dependencies
         working-directory: calculator_ui
-        run: pnpm install
+        run: pnpm install --no-optional
 
       - name: Setup Rust (Desktop)
         uses: dtolnay/rust-toolchain@stable
