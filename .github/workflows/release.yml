@@ -71,11 +71,13 @@ jobs:
         working-directory: calculator_ui
         run: pnpm install --no-optional
 
-      - name: Setup Rust (Desktop)
+      - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.target }},wasm32-unknown-unknown
-          components: wasm-pack
+          targets: ${{ matrix.target }}, wasm32-unknown-unknown
+
+      - name: Setup WASM
+        uses: taiki-e/install-action@wasm-pack
 
       - uses: Swatinem/rust-cache@v2
         with:
@@ -118,8 +120,11 @@ jobs:
           git push origin HEAD:main
 
       # ===== Desktop build =====
+      - name: Build WASM
+        working-directory: calculator_wasm
+        run: wasm-pack build --release
+
       - name: Build Desktop
-        if: matrix.target != 'android'
         working-directory: calculator_ui
         run: pnpm tauri build ${{ matrix.args }}
 
