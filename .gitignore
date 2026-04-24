@@ -16,3 +16,8 @@ Cargo.lock
 
 .idea/
 calculator_wasm/pkg/
+
+# AI
+**/.agents/
+**/.trae/
+**/skills-lock.json
