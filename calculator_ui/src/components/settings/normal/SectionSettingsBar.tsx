@@ -7,7 +7,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar.tsx";
+} from "@/components/ui/sidebar";
 import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
 
 interface SectionSettingsBarProps {

@@ -4,13 +4,13 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible.tsx";
+} from "@/components/ui/collapsible";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-} from "@/components/ui/sidebar.tsx";
+} from "@/components/ui/sidebar";
 
 interface CollapsibleSidebarMenuProps {
   icon: LucideIcon;

@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { BeamCanvas } from "@/components/render/BeamCanvas.tsx";
+import { BeamCanvas } from "@/components/render/BeamCanvas";
 import { BendingMomentDiagram } from "@/components/render/diagram/BendingMomentDiagram";
 import { ShearForceDiagram } from "@/components/render/diagram/ShearForceDiagram";
-import BeamSettingsBar from "@/components/settings/beam/BeamSettingsBar.tsx";
+import BeamSettingsBar from "@/components/settings/beam/BeamSettingsBar";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { sumForces } from "@/lib/beam-calculations";
 import {

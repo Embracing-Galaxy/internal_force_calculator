@@ -1,8 +1,8 @@
 import { Ruler } from "lucide-react";
-import { Input } from "@/components/ui/input.tsx";
-import { Label } from "@/components/ui/label.tsx";
-import { SidebarMenuSubItem } from "@/components/ui/sidebar.tsx";
-import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu.tsx";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { SidebarMenuSubItem } from "@/components/ui/sidebar";
+import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
 
 interface BeamPropertiesProps {
   onChange: (length: number) => void;
