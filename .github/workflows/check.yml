@@ -19,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
@@ -28,6 +26,8 @@ jobs:
       - name: Run Biome
         working-directory: calculator_ui
         run: biome ci .
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
       - name: Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
