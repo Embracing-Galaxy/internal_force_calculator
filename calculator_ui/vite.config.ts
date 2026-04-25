@@ -12,12 +12,15 @@ export default defineConfig(async () => {
   const serviceType = isTauri ? "tauri" : "wasm";
 
   return {
-    base: './',
+    base: "./",
     plugins: [react(), tailwindcss(), wasm()],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
-        "@calculator-service": path.resolve(__dirname, `./src/services/${serviceType}`),
+        "@calculator-service": path.resolve(
+          __dirname,
+          `./src/services/${serviceType}`,
+        ),
       },
     },
 
@@ -26,7 +29,7 @@ export default defineConfig(async () => {
     // prevent vite from obscuring rust errors
     clearScreen: false,
     // Env variables starting with the item of `envPrefix` will be exposed in tauri's source code through `import.meta.env`.
-    envPrefix: ['VITE_', 'TAURI_ENV_*'],
+    envPrefix: ["VITE_", "TAURI_ENV_*"],
     // tauri expects a fixed port, fail if that port is not available
     server: {
       port: 3000,
@@ -34,10 +37,10 @@ export default defineConfig(async () => {
       host: host || false,
       hmr: host
         ? {
-          protocol: "ws",
-          host,
-          port: 1421,
-        }
+            protocol: "ws",
+            host,
+            port: 1421,
+          }
         : undefined,
       watch: {
         // tell vite to ignore watching `src-tauri`
@@ -47,5 +50,5 @@ export default defineConfig(async () => {
     optimizeDeps: {
       exclude: ["calculator_wasm"],
     },
-  }
+  };
 });

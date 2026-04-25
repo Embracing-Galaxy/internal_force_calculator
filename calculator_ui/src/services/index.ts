@@ -1,5 +1,5 @@
-import type { ICalculatorService } from "./interface";
 import CalculatorService from "@calculator-service";
+import type { ICalculatorService } from "./interface";
 
 export const isTauri = import.meta.env.TAURI_ENV_FAMILY !== undefined;
 
