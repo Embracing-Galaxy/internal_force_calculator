@@ -1,19 +1,7 @@
 import type { ICalculatorService } from "./interface";
-import TauriCalculatorService from "./tauri";
-import WebCalculatorService from "./wasm";
+import CalculatorService from "@calculator-service";
 
-interface TauriWindow extends Window {
-  __TAURI_INTERNALS__?: unknown;
-}
+export const isTauri = import.meta.env.TAURI_ENV_FAMILY !== undefined;
 
-function hasTauriInternals(win: Window): win is TauriWindow {
-  return "__TAURI_INTERNALS__" in win;
-}
-
-export const isTauri =
-  hasTauriInternals(window) && !!(window as TauriWindow).__TAURI_INTERNALS__;
-
-export const calculatorService: ICalculatorService = isTauri
-  ? new TauriCalculatorService()
-  : new WebCalculatorService();
+export const calculatorService: ICalculatorService = new CalculatorService();
 export * from "./interface";

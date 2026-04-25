@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@calculator-service": ["./src/services/wasm"] // just for type checking
     }
   },
   "include": ["src"],
