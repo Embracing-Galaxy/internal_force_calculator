@@ -12,6 +12,7 @@ export default defineConfig(async () => {
   const serviceType = isTauri ? "tauri" : "wasm";
 
   return {
+    base: './',
     plugins: [react(), tailwindcss(), wasm()],
     resolve: {
       alias: {
