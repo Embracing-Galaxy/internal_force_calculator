@@ -9,6 +9,10 @@ import { BeamSettings } from "./BeamSettings";
 import { LoadList } from "./LoadList";
 import { SupportSettings } from "./SupportSettings";
 
+const normalizePosition = (position: number, length: number): number => {
+  return position < 0 ? length + position : position;
+};
+
 interface SettingsBarProps {
   beam: Beam;
   onBeamChange: (beam: Beam) => void;
@@ -41,11 +45,40 @@ export default function BeamSettingsBar({
   };
 
   const handleSupportsChange = (beam: Beam) => {
-    onBeamChange({ ...beam });
+    const normalizedBeam = {
+      ...beam,
+      supportA: {
+        ...beam.supportA,
+        position: normalizePosition(beam.supportA.position, beam.length),
+      },
+      supportB: {
+        ...beam.supportB,
+        position: normalizePosition(beam.supportB.position, beam.length),
+      },
+    };
+    onBeamChange(normalizedBeam);
   };
 
   const handleLoadsChange = (loads: Load[]) => {
-    onBeamChange({ ...beam, loads });
+    const normalizedLoads = loads.map((load) => {
+      switch (load.type) {
+        case "point":
+        case "moment":
+          return {
+            ...load,
+            position: normalizePosition(load.position, beam.length),
+          };
+        case "distributed":
+          return {
+            ...load,
+            startPosition: normalizePosition(load.startPosition, beam.length),
+            endPosition: normalizePosition(load.endPosition, beam.length),
+          };
+        default:
+          return load;
+      }
+    });
+    onBeamChange({ ...beam, loads: normalizedLoads });
   };
 
   return (

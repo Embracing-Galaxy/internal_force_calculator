@@ -26,7 +26,7 @@ export interface PointLoad {
 export interface MomentLoad {
   type: LoadType.Moment;
   id: string;
-  position: number; // 作用位置（记录用）
+  position: number; // 位置
   magnitude: number; // 大小（正逆时针, 负顺时针）单位：kN·m
 }
 

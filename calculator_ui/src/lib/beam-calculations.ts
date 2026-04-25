@@ -9,13 +9,12 @@ import {
 
 // 实际计算梁的内力
 export async function sumForces(beam: Beam): Promise<Load[] | SolverError> {
-  const processedBeam = processBeamPositions(beam); // 处理负值位置：将负值转换为实际位置
   const hasFixedSupport =
-    processedBeam.supportA.type === SupportType.Fixed ||
-    processedBeam.supportB.type === SupportType.Fixed;
+    beam.supportA.type === SupportType.Fixed ||
+    beam.supportB.type === SupportType.Fixed;
   const hasTwoSupport =
-    processedBeam.supportA.type !== SupportType.None &&
-    processedBeam.supportB.type !== SupportType.None;
+    beam.supportA.type !== SupportType.None &&
+    beam.supportB.type !== SupportType.None;
   if (hasFixedSupport && hasTwoSupport)
     return {
       type: "overconstrained",
@@ -23,7 +22,7 @@ export async function sumForces(beam: Beam): Promise<Load[] | SolverError> {
     };
 
   // 计算约束反力
-  const reactions = calculateReactions(processedBeam, hasFixedSupport);
+  const reactions = calculateReactions(beam, hasFixedSupport);
   if (!reactions)
     return {
       type: "underconstrained",
@@ -31,39 +30,6 @@ export async function sumForces(beam: Beam): Promise<Load[] | SolverError> {
     };
 
   return [...beam.loads, ...reactions];
-}
-
-// 处理梁的位置，将负值转换为实际位置
-function processBeamPositions(beam: Beam): Beam {
-  const processPosition = (pos: number): number => {
-    return pos < 0 ? beam.length + pos : pos;
-  };
-
-  return {
-    ...beam,
-    supportA: {
-      ...beam.supportA,
-      position: processPosition(beam.supportA.position),
-    },
-    supportB: {
-      ...beam.supportB,
-      position: processPosition(beam.supportB.position),
-    },
-    loads: beam.loads.map((load) => {
-      if (load.type === LoadType.DistributedLoad) {
-        return {
-          ...load,
-          startPosition: processPosition(load.startPosition),
-          endPosition: processPosition(load.endPosition),
-        };
-      } else {
-        return {
-          ...load,
-          position: processPosition(load.position),
-        };
-      }
-    }),
-  };
 }
 
 // 计算约束反力

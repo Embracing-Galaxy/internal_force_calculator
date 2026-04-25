@@ -15,11 +15,9 @@ export function SupportRenderer(renderContext: RenderContext) {
 
 function drawSupport(
   support: SupportConfig,
-  { ctx, beam, pixelsPerMeter, beamY, offsetX }: RenderContext,
+  { ctx, pixelsPerMeter, beamY, offsetX }: RenderContext,
 ) {
-  // 处理负值位置：负值表示离远端的距离
-  const pos =
-    support.position < 0 ? beam.length + support.position : support.position;
+  const pos = support.position;
   const x = offsetX + pos * pixelsPerMeter;
 
   switch (support.type) {
