@@ -200,7 +200,7 @@ jobs:
               cp "$NSIS_FILE" "upload_dist/$NEW_NAME"
             fi
 
-            MSI_FILE=$(find "$BASE_DIR/bundle/msi" -name "*.exe" -type f 2>/dev/null | head -n 1)
+            MSI_FILE=$(find "$BASE_DIR/bundle/msi" -name "*.msi" -type f 2>/dev/null | head -n 1)
             if [ -n "$MSI_FILE" ]; then
               NEW_NAME="${BASE_NAME}_setup.msi"
               cp "$MSI_FILE" "upload_dist/$NEW_NAME"
