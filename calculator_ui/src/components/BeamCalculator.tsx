@@ -10,6 +10,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useIsMobile } from "@/hooks/use-mobile.ts";
 import { sumForces } from "@/lib/beam-calculations";
 import {
   type Beam,
@@ -17,7 +18,6 @@ import {
   type SolverError,
   SupportType,
 } from "@/types/beam";
-import { useIsMobile } from "@/hooks/use-mobile.ts";
 
 export default function BeamCalculator() {
   const isMobile = useIsMobile();
