@@ -66,16 +66,21 @@ export default function BeamCalculator() {
             </ResizablePanel>
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize="50%" className="flex flex-col">
-              <ShearForceDiagram
-                beam={beam}
-                loads={result}
-                className="flex-1"
-              />
-              <BendingMomentDiagram
-                beam={beam}
-                loads={result}
-                className="flex-1"
-              />
+              <ResizablePanelGroup orientation="vertical">
+                <ResizablePanel defaultSize="50%">
+                  <ShearForceDiagram
+                    beam={beam}
+                    loads={result}
+                  />
+                </ResizablePanel>
+                <ResizableHandle withHandle />
+                <ResizablePanel defaultSize="50%">
+                  <BendingMomentDiagram
+                    beam={beam}
+                    loads={result}
+                  />
+                </ResizablePanel>
+              </ResizablePanelGroup>
             </ResizablePanel>
           </ResizablePanelGroup>
         )}

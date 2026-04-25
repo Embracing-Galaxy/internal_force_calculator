@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import NormalStressFormula from "@/components/NormalStressFormula";
 import SectionSettingsBar from "@/components/settings/normal/SectionSettingsBar";
-import { SidebarInset } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { calculatorService, type PrincipalMomentsOutput } from "@/services";
 
 export default function NormalStressCalculator() {
@@ -26,13 +26,14 @@ export default function NormalStressCalculator() {
 
   return (
     <div className="flex h-screen">
-      <SidebarInset className="flex-1 h-screen">
+      <main className="flex-1 relative h-screen">
+        <SidebarTrigger className="absolute top-1 right-1 rotate-180 z-10" />
         <NormalStressFormula
           calculateResult={results}
           force={force}
           forcePoint={forcePoint}
         />
-      </SidebarInset>
+      </main>
 
       <SectionSettingsBar
         onChangeFormula={setFormula}
