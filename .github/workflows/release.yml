@@ -73,7 +73,9 @@ jobs:
           targets: ${{ matrix.target }}, wasm32-unknown-unknown
 
       - name: Setup WASM
-        uses: taiki-e/install-action@wasm-pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-bindgen,wasm-pack
 
       - uses: Swatinem/rust-cache@v2
         with:
