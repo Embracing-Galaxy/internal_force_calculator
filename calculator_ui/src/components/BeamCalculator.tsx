@@ -56,10 +56,8 @@ export default function BeamCalculator() {
       <main className="flex-1 relative h-screen">
         <SidebarTrigger className="absolute top-1 right-1 rotate-180 z-10" />
         {!result ? (
-          // 没有结果时，BeamCanvas 占满整个空间
           <BeamCanvas beam={beam} error={error} className="h-full" />
         ) : (
-          // 有结果时，左右布局
           <ResizablePanelGroup>
             <ResizablePanel defaultSize="50%">
               <BeamCanvas beam={beam} error={error} />
@@ -68,17 +66,11 @@ export default function BeamCalculator() {
             <ResizablePanel defaultSize="50%" className="flex flex-col">
               <ResizablePanelGroup orientation="vertical">
                 <ResizablePanel defaultSize="50%">
-                  <ShearForceDiagram
-                    beam={beam}
-                    loads={result}
-                  />
+                  <ShearForceDiagram beam={beam} loads={result} />
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel defaultSize="50%">
-                  <BendingMomentDiagram
-                    beam={beam}
-                    loads={result}
-                  />
+                  <BendingMomentDiagram beam={beam} loads={result} />
                 </ResizablePanel>
               </ResizablePanelGroup>
             </ResizablePanel>
