@@ -18,22 +18,18 @@ export function LoadList({ loads, beamLength, onChange }: LoadListProps) {
       const newLoad: Load = {
         id: nanoid(),
         type: LoadType.DistributedLoad,
-        startPosition: beamLength / 4,
-        endPosition: (beamLength * 3) / 4,
+        startPosition: 0,
+        endPosition: beamLength,
         magnitude: -5,
       };
       onChange([...loads, newLoad]);
     } else {
-      const base = {
+      const newLoad: Load = {
         id: nanoid(),
         position: beamLength / 2,
-        magnitude: type === LoadType.PointLoad ? -10 : 20,
+        magnitude: -10,
+        type,
       };
-
-      const newLoad: Load =
-        type === LoadType.PointLoad
-          ? { ...base, type: LoadType.PointLoad }
-          : { ...base, type: LoadType.Moment };
 
       onChange([...loads, newLoad]);
     }
