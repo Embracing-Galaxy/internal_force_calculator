@@ -17,8 +17,10 @@ import {
   type SolverError,
   SupportType,
 } from "@/types/beam";
+import { useIsMobile } from "@/hooks/use-mobile.ts";
 
 export default function BeamCalculator() {
+  const isMobile = useIsMobile();
   const [beam, setBeam] = useState<Beam>({
     length: 0,
     supportA: { position: 0, type: SupportType.None },
@@ -58,8 +60,10 @@ export default function BeamCalculator() {
         {!result ? (
           <BeamCanvas beam={beam} error={error} className="h-full" />
         ) : (
-          <ResizablePanelGroup>
-            <ResizablePanel defaultSize="50%">
+          <ResizablePanelGroup
+            orientation={isMobile ? "vertical" : "horizontal"}
+          >
+            <ResizablePanel defaultSize={isMobile ? "25%" : "50%"}>
               <BeamCanvas beam={beam} error={error} />
             </ResizablePanel>
             <ResizableHandle withHandle />
