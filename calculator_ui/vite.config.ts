@@ -32,7 +32,7 @@ export default defineConfig(async () => {
     envPrefix: ["VITE_", "TAURI_ENV_*"],
     // tauri expects a fixed port, fail if that port is not available
     server: {
-      port: 3000,
+      port: 3070,
       strictPort: true,
       host: host || false,
       hmr: host
