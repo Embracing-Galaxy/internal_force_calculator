@@ -59,8 +59,3 @@ export interface SolverError {
     unknown_count?: number;
   };
 }
-
-export interface CalculationResult {
-  maxShear: number;
-  maxMoment: number;
-}

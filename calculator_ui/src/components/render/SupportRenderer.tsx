@@ -33,10 +33,7 @@ function drawSupport(
   }
 }
 
-function drawHinge(ctx: CanvasRenderingContext2D, x: number, y: number) {
-  const size = 12;
-
-  // 三角形
+function drawTriangle(ctx: CanvasRenderingContext2D, x: number, y: number, size: number) {
   ctx.fillStyle = "#fff";
   ctx.strokeStyle = "#334155";
   ctx.lineWidth = 2;
@@ -48,6 +45,12 @@ function drawHinge(ctx: CanvasRenderingContext2D, x: number, y: number) {
   ctx.closePath();
   ctx.fill();
   ctx.stroke();
+}
+
+function drawHinge(ctx: CanvasRenderingContext2D, x: number, y: number) {
+  const size = 12;
+
+  drawTriangle(ctx, x, y, size);
 
   // 地面线
   ctx.beginPath();
@@ -67,18 +70,7 @@ function drawHinge(ctx: CanvasRenderingContext2D, x: number, y: number) {
 function drawRoller(ctx: CanvasRenderingContext2D, x: number, y: number) {
   const size = 12;
 
-  // 三角形（与Hinge同比例）
-  ctx.fillStyle = "#fff";
-  ctx.strokeStyle = "#334155";
-  ctx.lineWidth = 2;
-
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(x - size, y + size * 1.5);
-  ctx.lineTo(x + size, y + size * 1.5);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
+  drawTriangle(ctx, x, y, size);
 
   // 滚轮
   const wheelRadius = 5;
