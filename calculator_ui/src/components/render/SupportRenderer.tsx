@@ -33,7 +33,12 @@ function drawSupport(
   }
 }
 
-function drawTriangle(ctx: CanvasRenderingContext2D, x: number, y: number, size: number) {
+function drawTriangle(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  size: number,
+) {
   ctx.fillStyle = "#fff";
   ctx.strokeStyle = "#334155";
   ctx.lineWidth = 2;

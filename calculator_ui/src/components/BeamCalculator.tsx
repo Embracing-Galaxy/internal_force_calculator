@@ -67,7 +67,7 @@ export default function BeamCalculator() {
               <BeamCanvas beam={beam} error={error} />
             </ResizablePanel>
             <ResizableHandle withHandle />
-            <ResizablePanel defaultSize="50%" className="flex flex-col">
+            <ResizablePanel>
               <ResizablePanelGroup orientation="vertical">
                 <ResizablePanel defaultSize="50%">
                   <ShearForceDiagram beam={beam} loads={result} />

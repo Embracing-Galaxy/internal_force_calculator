@@ -24,10 +24,10 @@ export function ShearForceDiagram({ beam, loads }: ShearForceDiagramProps) {
   );
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" className="overflow-hidden">
       <LineChart
         data={shearData}
-        margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <ReferenceLine y={0} stroke="black" strokeWidth={1.5} />
