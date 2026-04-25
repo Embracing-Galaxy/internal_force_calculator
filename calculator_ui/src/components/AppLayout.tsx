@@ -10,9 +10,7 @@ export default function AppLayout() {
       <TooltipProvider>
         <div className="flex h-screen w-screen">
           <AppSidebar />
-          <main>
-            <Outlet />
-          </main>
+          <Outlet />
         </div>
         <Toaster position="top-center" />
       </TooltipProvider>

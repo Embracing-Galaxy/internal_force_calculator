@@ -9,7 +9,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { sumForces } from "@/lib/beam-calculations";
 import {
   type Beam,
@@ -53,35 +53,33 @@ export default function BeamCalculator() {
 
   return (
     <div className="flex w-full">
-      <SidebarInset className="flex-1 h-screen">
-        <SidebarTrigger className="-mr-1 ml-auto mt-1 rotate-180 z-10" />
+      <main className="flex-1 relative h-screen">
+        <SidebarTrigger className="absolute top-1 right-1 rotate-180 z-10" />
         {!result ? (
           // 没有结果时，BeamCanvas 占满整个空间
           <BeamCanvas beam={beam} error={error} className="h-full" />
         ) : (
           // 有结果时，左右布局
           <ResizablePanelGroup>
-            <ResizablePanel defaultSize={50}>
-              <BeamCanvas beam={beam} error={error} className="h-full" />
+            <ResizablePanel defaultSize="50%">
+              <BeamCanvas beam={beam} error={error} />
             </ResizablePanel>
             <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={50}>
-              <div className="h-full flex flex-col">
-                <ShearForceDiagram
-                  beam={beam}
-                  loads={result}
-                  className="flex-1"
-                />
-                <BendingMomentDiagram
-                  beam={beam}
-                  loads={result}
-                  className="flex-1"
-                />
-              </div>
+            <ResizablePanel defaultSize="50%" className="flex flex-col">
+              <ShearForceDiagram
+                beam={beam}
+                loads={result}
+                className="flex-1"
+              />
+              <BendingMomentDiagram
+                beam={beam}
+                loads={result}
+                className="flex-1"
+              />
             </ResizablePanel>
           </ResizablePanelGroup>
         )}
-      </SidebarInset>
+      </main>
       <BeamSettingsBar
         beam={beam}
         onBeamChange={setBeam}

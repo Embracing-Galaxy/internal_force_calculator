@@ -30,7 +30,7 @@ export function ShearForceDiagram({
   );
 
   return (
-    <div className={cn("w-full h-[300px] mb-5", className)}>
+    <div className={cn("w-full h-75 mb-5", className)}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={shearData}
