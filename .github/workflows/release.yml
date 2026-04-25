@@ -166,6 +166,11 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           TARGET: ${{ matrix.target }}
         run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          VERSION=${VERSION%%-*}
+          echo "Processing assets for $PLATFORM..."
+          echo "Version: $VERSION"
+          BASE_NAME="Internal Force Calculator_${VERSION}_${PLATFORM}"
           mkdir -p upload_dist
 
           if [[ "${{ matrix.args }}" == *"--target"* ]]; then
@@ -191,19 +196,20 @@ jobs:
             echo "Looking for Windows assets..."
             NSIS_FILE=$(find "$BASE_DIR/bundle/nsis" -name "*.exe" -type f 2>/dev/null | head -n 1)
             if [ -n "$NSIS_FILE" ]; then
-              echo "Found NSIS: $NSIS_FILE"
-              cp "$NSIS_FILE" "upload_dist/$NSIS_FILE"
+              NEW_NAME="${BASE_NAME}_setup.exe"
+              cp "$NSIS_FILE" "upload_dist/$NEW_NAME"
             fi
 
             MSI_FILE=$(find "$BASE_DIR/bundle/msi" -name "*.exe" -type f 2>/dev/null | head -n 1)
             if [ -n "$MSI_FILE" ]; then
-              echo "Found NSIS: $NSIS_FILE"
-              cp "$NSIS_FILE" "upload_dist/$NSIS_FILE"
+              NEW_NAME="${BASE_NAME}_setup.msi"
+              cp "$MSI_FILE" "upload_dist/$NEW_NAME"
             fi
 
             PORTABLE="$BASE_DIR/calculator_ui.exe"
             if [ -f "$PORTABLE" ]; then
-              cp "$PORTABLE" "upload_dist/$PORTABLE"
+              NEW_NAME="${BASE_NAME}_portable.exe"
+              cp "$PORTABLE" "upload_dist/$NEW_NAME"
             fi
           fi
 
@@ -212,17 +218,20 @@ jobs:
             echo "Looking for Linux assets..."
             APPIMAGE=$(find "$BASE_DIR/bundle/appimage" -name "*.AppImage" -type f 2>/dev/null | head -n 1)
             if [ -n "$APPIMAGE" ]; then
-              cp "$APPIMAGE" "upload_dist/$APPIMAGE"
+              NEW_NAME="${BASE_NAME}.AppImage"
+              cp "$APPIMAGE" "upload_dist/$NEW_NAME"
             fi
 
             DEB=$(find "$BASE_DIR/bundle/deb" -name "*.deb" -type f 2>/dev/null | head -n 1)
             if [ -n "$DEB" ]; then
-              cp "$DEB" "upload_dist/$DEB"
+              NEW_NAME="${BASE_NAME}.deb"
+              cp "$DEB" "upload_dist/$NEW_NAME"
             fi
 
             RPM=$(find "$BASE_DIR/bundle/rpm" -name "*.rpm" -type f 2>/dev/null | head -n 1)
             if [ -n "$RPM" ]; then
-              cp "$RPM" "upload_dist/$RPM"
+              NEW_NAME="${BASE_NAME}.rpm"
+              cp "$RPM" "upload_dist/$NEW_NAME"
             fi
           fi
 
@@ -231,7 +240,8 @@ jobs:
             echo "Looking for macOS assets..."
             DMG=$(find "$BASE_DIR/bundle/dmg" -name "*.dmg" -type f 2>/dev/null | head -n 1)
             if [ -n "$DMG" ]; then
-              cp "$DMG" "upload_dist/$DMG"
+              NEW_NAME="${BASE_NAME}.dmg"
+              cp "$DMG" "upload_dist/$NEW_NAME"
             fi
           fi
 
