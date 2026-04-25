@@ -115,7 +115,7 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: Bump version to $VERSION"
           git push origin HEAD:main
 
-      # ===== Desktop build =====
+      # ===== Build =====
       - name: Build WASM
         working-directory: calculator_wasm
         run: wasm-pack build --release
@@ -127,6 +127,11 @@ jobs:
       - name: Build Desktop
         working-directory: calculator_ui
         run: pnpm tauri build ${{ matrix.args }}
+
+      - name: Build Web
+        if: matrix.platform == 'linux-x86_64'
+        working-directory: calculator_ui
+        run: pnpm build
 
       # ===== Release body generation (only on linux-x86_64) =====
       - name: Generate Release Body with git-cliff
@@ -152,7 +157,6 @@ jobs:
 
       # ===== Upload assets =====
       - name: Upload Desktop Assets
-        if: matrix.target != 'android'
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -160,11 +164,6 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           TARGET: ${{ matrix.target }}
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          VERSION=${VERSION%%-*}
-          echo "Processing assets for $PLATFORM..."
-          echo "Version: $VERSION"
-          
           mkdir -p upload_dist
 
           if [[ "${{ matrix.args }}" == *"--target"* ]]; then
@@ -190,16 +189,19 @@ jobs:
             echo "Looking for Windows assets..."
             NSIS_FILE=$(find "$BASE_DIR/bundle/nsis" -name "*.exe" -type f 2>/dev/null | head -n 1)
             if [ -n "$NSIS_FILE" ]; then
-              NEW_NAME="Pearl-Calculator-RS_${VERSION}_${PLATFORM}_setup.exe"
-              echo "Found NSIS: $NSIS_FILE -> $NEW_NAME"
-              cp "$NSIS_FILE" "upload_dist/$NEW_NAME"
+              echo "Found NSIS: $NSIS_FILE"
+              cp "$NSIS_FILE" "upload_dist/$NSIS_FILE"
             fi
-          
+
+            MSI_FILE=$(find "$BASE_DIR/bundle/msi" -name "*.exe" -type f 2>/dev/null | head -n 1)
+            if [ -n "$MSI_FILE" ]; then
+              echo "Found NSIS: $NSIS_FILE"
+              cp "$NSIS_FILE" "upload_dist/$NSIS_FILE"
+            fi
+
             PORTABLE="$BASE_DIR/calculator_ui.exe"
             if [ -f "$PORTABLE" ]; then
-              NEW_NAME="Pearl-Calculator-RS_${VERSION}_${PLATFORM}_portable.exe"
-              echo "Found portable: $PORTABLE -> $NEW_NAME"
-              cp "$PORTABLE" "upload_dist/$NEW_NAME"
+              cp "$PORTABLE" "upload_dist/$PORTABLE"
             fi
           fi
 
@@ -208,20 +210,17 @@ jobs:
             echo "Looking for Linux assets..."
             APPIMAGE=$(find "$BASE_DIR/bundle/appimage" -name "*.AppImage" -type f 2>/dev/null | head -n 1)
             if [ -n "$APPIMAGE" ]; then
-              NEW_NAME="Pearl-Calculator-RS_${VERSION}_${PLATFORM}.AppImage"
-              cp "$APPIMAGE" "upload_dist/$NEW_NAME"
+              cp "$APPIMAGE" "upload_dist/$APPIMAGE"
             fi
-          
+
             DEB=$(find "$BASE_DIR/bundle/deb" -name "*.deb" -type f 2>/dev/null | head -n 1)
             if [ -n "$DEB" ]; then
-              NEW_NAME="Pearl-Calculator-RS_${VERSION}_${PLATFORM}.deb"
-              cp "$DEB" "upload_dist/$NEW_NAME"
+              cp "$DEB" "upload_dist/$DEB"
             fi
-          
+
             RPM=$(find "$BASE_DIR/bundle/rpm" -name "*.rpm" -type f 2>/dev/null | head -n 1)
             if [ -n "$RPM" ]; then
-              NEW_NAME="Pearl-Calculator-RS_${VERSION}_${PLATFORM}.rpm"
-              cp "$RPM" "upload_dist/$NEW_NAME"
+              cp "$RPM" "upload_dist/$RPM"
             fi
           fi
 
@@ -230,9 +229,14 @@ jobs:
             echo "Looking for macOS assets..."
             DMG=$(find "$BASE_DIR/bundle/dmg" -name "*.dmg" -type f 2>/dev/null | head -n 1)
             if [ -n "$DMG" ]; then
-              NEW_NAME="Pearl-Calculator-RS_${VERSION}_${PLATFORM}.dmg"
-              cp "$DMG" "upload_dist/$NEW_NAME"
+              cp "$DMG" "upload_dist/$DMG"
             fi
+          fi
+
+          # web
+          if [[ "$PLATFORM" == linux-x86_64 ]]; then
+            echo "Looking for web assets..."
+            tar -cf upload_dist/web.tar.zst -C calculator_ui/dist .
           fi
 
           echo "=== Upload Directory Contents ==="
