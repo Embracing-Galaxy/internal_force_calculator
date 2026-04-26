@@ -2,6 +2,10 @@
   "name": "calculator_ui",
   "private": true,
   "version": "0.1.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Embracing-Galaxy/internal_force_calculator/"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
