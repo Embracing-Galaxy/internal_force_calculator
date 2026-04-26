@@ -25,7 +25,7 @@ export default function NormalStressCalculator() {
   }, [formula]);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex w-full h-screen">
       <main className="flex-1 relative h-screen">
         <SidebarTrigger className="absolute top-1 right-1 rotate-180 z-10" />
         <NormalStressFormula
