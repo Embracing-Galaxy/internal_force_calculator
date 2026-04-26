@@ -1,5 +1,6 @@
 import { ArrowDownCircle, Plus, RotateCcw } from "lucide-react";
 import { nanoid } from "nanoid";
+import type React from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarMenuSubItem } from "@/components/ui/sidebar";
 import { type Load, LoadType } from "@/types/beam";
@@ -57,34 +58,32 @@ export function LoadList({ loads, beamLength, onChange }: LoadListProps) {
     );
   };
 
+  const LoadButton = ({
+    icon: Icon,
+    label,
+    type,
+  }: {
+    icon: React.ElementType;
+    label: string;
+    type: LoadType;
+  }) => (
+    <Button variant="outline" size="sm" onClick={() => addLoad(type)}>
+      <Icon className="w-3 h-3 mr-1" />
+      {label}
+    </Button>
+  );
+
   return (
     <CollapsibleSidebarMenu icon={ArrowDownCircle} title="外荷载">
       <SidebarMenuSubItem>
         <div className="p-2 flex flex-col gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => addLoad(LoadType.PointLoad)}
-          >
-            <Plus className="w-3 h-3 mr-1" />
-            集中力
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => addLoad(LoadType.Moment)}
-          >
-            <RotateCcw className="w-3 h-3 mr-1" />
-            力偶
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => addLoad(LoadType.DistributedLoad)}
-          >
-            <Plus className="w-3 h-3 mr-1" />
-            分布载荷
-          </Button>
+          <LoadButton icon={Plus} label="集中力" type={LoadType.PointLoad} />
+          <LoadButton icon={RotateCcw} label="力偶" type={LoadType.Moment} />
+          <LoadButton
+            icon={Plus}
+            label="分布载荷"
+            type={LoadType.DistributedLoad}
+          />
         </div>
       </SidebarMenuSubItem>
 
