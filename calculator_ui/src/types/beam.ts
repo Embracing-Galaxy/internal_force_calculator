@@ -16,26 +16,28 @@ export enum LoadType {
   DistributedLoad = "distributed", // 分布载荷
 }
 
-export interface PointLoad {
+export interface BaseLoad {
+  id: string;
+  magnitude: number;
+}
+
+// 向上为正, 单位：kN
+export interface PointLoad extends BaseLoad {
   type: LoadType.PointLoad;
-  id: string;
   position: number; // 位置
-  magnitude: number; // 大小（正向上, 负向下）单位：kN
 }
 
-export interface MomentLoad {
+// 逆时针为正, 单位：kN·m
+export interface MomentLoad extends BaseLoad {
   type: LoadType.Moment;
-  id: string;
   position: number; // 位置
-  magnitude: number; // 大小（正逆时针, 负顺时针）单位：kN·m
 }
 
-export interface DistributedLoad {
+// 向上为正, 单位：kN/m
+export interface DistributedLoad extends BaseLoad {
   type: LoadType.DistributedLoad;
-  id: string;
   startPosition: number; // 起始位置
   endPosition: number; // 结束位置
-  magnitude: number; // 大小（正向上, 负向下）单位：kN/m
 }
 
 export type Load = PointLoad | MomentLoad | DistributedLoad;
