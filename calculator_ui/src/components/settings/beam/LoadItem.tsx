@@ -1,7 +1,12 @@
 import { ArrowDownCircle, RotateCcw, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Field,
+  FieldContent,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { SidebarMenuSubItem } from "@/components/ui/sidebar";
 import { type Load, LoadType } from "@/types/beam";
 
@@ -48,15 +53,20 @@ export default function LoadItem({
 
         {load.type === LoadType.DistributedLoad ? (
           <div className="space-y-2">
-            <div className="grid grid-cols-2 gap-2">
-              <div className="space-y-1">
-                <Label className="text-[10px] text-sidebar-foreground/70">
+            <FieldGroup className="grid grid-cols-2 gap-2">
+              <Field>
+                <FieldLabel
+                  htmlFor="start-position"
+                  className="text-[10px] text-sidebar-foreground/70"
+                >
                   起始位置 (m)
-                </Label>
+                </FieldLabel>
                 <Input
+                  id="start-position"
                   type="number"
                   min={0}
                   max={beamLength}
+                  value={load.startPosition}
                   onChange={(e) => {
                     const inputValue = e.target.value;
                     if (inputValue === "") {
@@ -68,15 +78,20 @@ export default function LoadItem({
                   }}
                   className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                 />
-              </div>
-              <div className="space-y-1">
-                <Label className="text-[10px] text-sidebar-foreground/70">
+              </Field>
+              <Field>
+                <FieldLabel
+                  htmlFor="end-position"
+                  className="text-[10px] text-sidebar-foreground/70"
+                >
                   结束位置 (m)
-                </Label>
+                </FieldLabel>
                 <Input
+                  id="end-position"
                   type="number"
                   min={0}
                   max={beamLength}
+                  value={load.endPosition}
                   onChange={(e) => {
                     const inputValue = e.target.value;
                     if (inputValue === "") {
@@ -88,37 +103,48 @@ export default function LoadItem({
                   }}
                   className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                 />
-              </div>
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[10px] text-sidebar-foreground/70">
+              </Field>
+            </FieldGroup>
+            <Field>
+              <FieldLabel
+                htmlFor="magnitude"
+                className="text-[10px] text-sidebar-foreground/70"
+              >
                 大小 (kN/m)
-              </Label>
-              <Input
-                type="number"
-                onChange={(e) => {
-                  const inputValue = e.target.value;
-                  if (inputValue === "") {
-                    return;
-                  }
-                  onUpdate(index, {
-                    magnitude: parseFloat(inputValue) || 0,
-                  });
-                }}
-                className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              />
-            </div>
+              </FieldLabel>
+              <FieldContent>
+                <Input
+                  type="number"
+                  value={load.magnitude}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    if (inputValue === "") {
+                      return;
+                    }
+                    onUpdate(index, {
+                      magnitude: parseFloat(inputValue) || 0,
+                    });
+                  }}
+                  className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
+              </FieldContent>
+            </Field>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-2">
-            <div className="space-y-1">
-              <Label className="text-[10px] text-sidebar-foreground/70">
+          <FieldGroup className="grid grid-cols-2 gap-2">
+            <Field>
+              <FieldLabel
+                htmlFor="pos"
+                className="text-[10px] text-sidebar-foreground/70"
+              >
                 位置 (m)
-              </Label>
+              </FieldLabel>
               <Input
+                id="pos"
                 type="number"
                 min={0}
                 max={beamLength}
+                value={load.position}
                 onChange={(e) => {
                   const inputValue = e.target.value;
                   if (inputValue === "") {
@@ -130,14 +156,19 @@ export default function LoadItem({
                 }}
                 className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />
-            </div>
+            </Field>
 
-            <div className="space-y-1">
-              <Label className="text-[10px] text-sidebar-foreground/70">
+            <Field>
+              <FieldLabel
+                htmlFor="magnitude"
+                className="text-[10px] text-sidebar-foreground/70"
+              >
                 大小 ({load.type === LoadType.PointLoad ? "kN" : "kN·m"})
-              </Label>
+              </FieldLabel>
               <Input
+                id="magnitude"
                 type="number"
+                value={load.magnitude}
                 onChange={(e) => {
                   const inputValue = e.target.value;
                   if (inputValue === "") {
@@ -149,8 +180,8 @@ export default function LoadItem({
                 }}
                 className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />
-            </div>
-          </div>
+            </Field>
+          </FieldGroup>
         )}
       </div>
     </SidebarMenuSubItem>

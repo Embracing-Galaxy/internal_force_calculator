@@ -71,6 +71,7 @@ function SupportConfig({
           <Input
             type="number"
             max={beamLength}
+            value={support.position}
             onChange={handlePositionChange}
             disabled={positionDisabled}
             className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
