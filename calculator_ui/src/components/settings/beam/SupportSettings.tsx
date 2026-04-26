@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { SidebarMenuSubItem } from "@/components/ui/sidebar";
 import { type Beam, SupportType } from "@/types/beam";
-import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
+import CollapsibleSidebarMenu from "../CollapsibleSidebarMenu";
 
 interface SupportConfigProps {
   label: string;
@@ -95,7 +95,7 @@ function SupportConfig({
   );
 }
 
-export function SupportSettings({
+export default function SupportSettings({
   beam,
   onChange,
 }: {

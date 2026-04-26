@@ -2,13 +2,13 @@ import { Ruler } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SidebarMenuSubItem } from "@/components/ui/sidebar";
-import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
+import CollapsibleSidebarMenu from "../CollapsibleSidebarMenu";
 
 interface BeamPropertiesProps {
   onChange: (length: number) => void;
 }
 
-export function BeamSettings({ onChange }: BeamPropertiesProps) {
+export default function BeamSettings({ onChange }: BeamPropertiesProps) {
   return (
     <CollapsibleSidebarMenu icon={Ruler} title="梁属性">
       <SidebarMenuSubItem>

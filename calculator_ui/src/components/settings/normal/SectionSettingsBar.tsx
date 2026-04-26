@@ -8,7 +8,7 @@ import {
   SidebarFooter,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
+import CollapsibleSidebarMenu from "../CollapsibleSidebarMenu";
 
 interface SectionSettingsBarProps {
   onChangeFormula: (formula: string) => void;

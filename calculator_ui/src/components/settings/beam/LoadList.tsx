@@ -4,8 +4,8 @@ import type React from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarMenuSubItem } from "@/components/ui/sidebar";
 import { type Load, LoadType } from "@/types/beam";
-import { CollapsibleSidebarMenu } from "../CollapsibleSidebarMenu";
-import { LoadItem } from "./LoadItem";
+import CollapsibleSidebarMenu from "../CollapsibleSidebarMenu";
+import LoadItem from "./LoadItem";
 
 interface LoadListProps {
   loads: Load[];
@@ -13,7 +13,11 @@ interface LoadListProps {
   onChange: (loads: Load[]) => void;
 }
 
-export function LoadList({ loads, beamLength, onChange }: LoadListProps) {
+export default function LoadList({
+  loads,
+  beamLength,
+  onChange,
+}: LoadListProps) {
   const addLoad = (type: LoadType) => {
     if (type === LoadType.DistributedLoad) {
       const newLoad: Load = {

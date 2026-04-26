@@ -8,7 +8,7 @@ interface RenderContext {
   offsetX: number;
 }
 
-export function SupportRenderer(renderContext: RenderContext) {
+export default function SupportRenderer(renderContext: RenderContext) {
   drawSupport(renderContext.beam.supportA, renderContext);
   drawSupport(renderContext.beam.supportB, renderContext);
 }

@@ -13,7 +13,7 @@ interface LoadItemProps {
   onRemove: (id: string) => void;
 }
 
-export function LoadItem({
+export default function LoadItem({
   load,
   index,
   beamLength,

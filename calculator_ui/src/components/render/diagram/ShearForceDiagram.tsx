@@ -17,7 +17,10 @@ interface ShearForceDiagramProps {
   loads: Load[];
 }
 
-export function ShearForceDiagram({ beam, loads }: ShearForceDiagramProps) {
+export default function ShearForceDiagram({
+  beam,
+  loads,
+}: ShearForceDiagramProps) {
   const shearData = useMemo(
     () => generateShearData(beam.length, loads, beam.length / 200),
     [beam, loads],

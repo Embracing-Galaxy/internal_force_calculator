@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ChevronRight } from "lucide-react";
+import type React from "react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -18,7 +19,7 @@ interface CollapsibleSidebarMenuProps {
   children: React.ReactNode;
 }
 
-export function CollapsibleSidebarMenu({
+export default function CollapsibleSidebarMenu({
   icon: Icon,
   title,
   children,

@@ -17,7 +17,7 @@ interface BendingMomentDiagramProps {
   loads: Load[];
 }
 
-export function BendingMomentDiagram({
+export default function BendingMomentDiagram({
   beam,
   loads,
 }: BendingMomentDiagramProps) {

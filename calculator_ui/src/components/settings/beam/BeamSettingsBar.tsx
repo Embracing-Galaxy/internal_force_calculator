@@ -5,9 +5,9 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { type Beam, type Load, SupportType } from "@/types/beam";
-import { BeamSettings } from "./BeamSettings";
-import { LoadList } from "./LoadList";
-import { SupportSettings } from "./SupportSettings";
+import BeamSettings from "./BeamSettings";
+import LoadList from "./LoadList";
+import SupportSettings from "./SupportSettings";
 
 const normalizePosition = (position: number, length: number): number => {
   return position < 0 ? length + position : position;

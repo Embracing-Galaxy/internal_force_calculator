@@ -2,15 +2,15 @@ import type React from "react";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import type { Beam } from "@/types/beam";
-import { BeamRenderer } from "./BeamRenderer";
-import { SupportRenderer } from "./SupportRenderer";
+import BeamRenderer from "./BeamRenderer";
+import SupportRenderer from "./SupportRenderer";
 
 interface BeamCanvasProps extends React.ComponentProps<"div"> {
   beam: Beam;
   error?: string | null;
 }
 
-export function BeamCanvas({
+export default function BeamCanvas({
   beam,
   error,
   className,

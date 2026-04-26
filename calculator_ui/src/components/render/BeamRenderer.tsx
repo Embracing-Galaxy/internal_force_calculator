@@ -8,7 +8,7 @@ interface RenderContext {
   offsetX: number;
 }
 
-export function BeamRenderer({
+export default function BeamRenderer({
   ctx,
   beam,
   pixelsPerMeter,
