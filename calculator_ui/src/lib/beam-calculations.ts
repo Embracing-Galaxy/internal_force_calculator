@@ -8,7 +8,7 @@ import {
 } from "@/types/beam";
 
 // 实际计算梁的内力
-export async function sumForces(beam: Beam): Promise<Load[] | SolverError> {
+export function sumForces(beam: Beam): Load[] | SolverError {
   const hasFixedSupport =
     beam.supportA.type === SupportType.Fixed ||
     beam.supportB.type === SupportType.Fixed;

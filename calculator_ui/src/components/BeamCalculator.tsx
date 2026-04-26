@@ -31,11 +31,11 @@ export default function BeamCalculator() {
   const [result, setResult] = useState<Load[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const calculate = useCallback(async () => {
+  const calculate = useCallback(() => {
     setError(null);
 
     try {
-      const response = await sumForces(beam);
+      const response = sumForces(beam);
 
       if ("type" in response) {
         const err = response as SolverError;
