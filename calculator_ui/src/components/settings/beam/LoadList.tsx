@@ -40,24 +40,24 @@ export default function LoadList({
     }
   };
 
-  const removeLoad = (id: string) => {
-    onChange(loads.filter((l) => l.id !== id));
+  const removeLoad = (index: number) => {
+    onChange(loads.filter((_, i) => i !== index));
   };
 
-  const updateLoad = (id: string, updates: Partial<Load>) => {
+  const updateLoad = (index: number, updates: Partial<Load>) => {
     onChange(
-      loads.map((l) => {
-        if (l.id === id) {
+      loads.map((_load, i) => {
+        if (i === index) {
           // 确保类型安全，只更新对应类型的属性
-          if (l.type === LoadType.DistributedLoad) {
-            const distributedUpdates = updates as Partial<typeof l>;
-            return { ...l, ...distributedUpdates };
+          if (_load.type === LoadType.DistributedLoad) {
+            const distributedUpdates = updates as Partial<typeof _load>;
+            return { ..._load, ...distributedUpdates };
           } else {
-            const pointOrMomentUpdates = updates as Partial<typeof l>;
-            return { ...l, ...pointOrMomentUpdates };
+            const pointOrMomentUpdates = updates as Partial<typeof _load>;
+            return { ..._load, ...pointOrMomentUpdates };
           }
         }
-        return l;
+        return _load;
       }),
     );
   };

@@ -9,8 +9,8 @@ interface LoadItemProps {
   load: Load;
   index: number;
   beamLength: number;
-  onUpdate: (id: string, updates: Partial<Load>) => void;
-  onRemove: (id: string) => void;
+  onUpdate: (index: number, updates: Partial<Load>) => void;
+  onRemove: (index: number) => void;
 }
 
 export default function LoadItem({
@@ -41,7 +41,7 @@ export default function LoadItem({
               {index + 1}
             </span>
           </div>
-          <Button variant="ghost" size="sm" onClick={() => onRemove(load.id)}>
+          <Button variant="ghost" size="sm" onClick={() => onRemove(index)}>
             <Trash2 className="w-3 h-3" />
           </Button>
         </div>
@@ -62,7 +62,7 @@ export default function LoadItem({
                     if (inputValue === "") {
                       return;
                     }
-                    onUpdate(load.id, {
+                    onUpdate(index, {
                       startPosition: parseFloat(inputValue) || 0,
                     });
                   }}
@@ -82,7 +82,7 @@ export default function LoadItem({
                     if (inputValue === "") {
                       return;
                     }
-                    onUpdate(load.id, {
+                    onUpdate(index, {
                       endPosition: parseFloat(inputValue) || 0,
                     });
                   }}
@@ -101,7 +101,7 @@ export default function LoadItem({
                   if (inputValue === "") {
                     return;
                   }
-                  onUpdate(load.id, {
+                  onUpdate(index, {
                     magnitude: parseFloat(inputValue) || 0,
                   });
                 }}
@@ -124,7 +124,7 @@ export default function LoadItem({
                   if (inputValue === "") {
                     return;
                   }
-                  onUpdate(load.id, {
+                  onUpdate(index, {
                     position: parseFloat(inputValue) || 0,
                   });
                 }}
@@ -143,7 +143,7 @@ export default function LoadItem({
                   if (inputValue === "") {
                     return;
                   }
-                  onUpdate(load.id, {
+                  onUpdate(index, {
                     magnitude: parseFloat(inputValue) || 0,
                   });
                 }}
