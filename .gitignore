@@ -18,6 +18,6 @@ Cargo.lock
 calculator_wasm/pkg/
 
 # AI
-**/.agents/
-**/.trae/
-**/skills-lock.json
+.opencode/
+**/AGENTS.md
+skills-lock.json
