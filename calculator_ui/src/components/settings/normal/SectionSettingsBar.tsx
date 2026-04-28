@@ -15,6 +15,7 @@ interface SectionSettingsBarProps {
   onChangeForceX: (x: number) => void;
   onChangeForceY: (y: number) => void;
   onChangeForceZ: (z: number) => void;
+  onChangeForcePointX: (x: number) => void;
   onChangeForcePointY: (y: number) => void;
   onChangeForcePointZ: (z: number) => void;
   onCalculate: () => void;
@@ -25,6 +26,7 @@ export default function SectionSettingsBar({
   onChangeForceX,
   onChangeForceY,
   onChangeForceZ,
+  onChangeForcePointX,
   onChangeForcePointY,
   onChangeForcePointZ,
   onCalculate,
@@ -50,6 +52,10 @@ export default function SectionSettingsBar({
         </CollapsibleSidebarMenu>
         <CollapsibleSidebarMenu icon={MousePointer2} title="外力作用点">
           <SidebarMenuSubItem className="flex">
+            <Label>x:</Label>
+            <Input
+              onChange={(e) => onChangeForcePointX(Number(e.target.value))}
+            />
             <Label>y:</Label>
             <Input
               onChange={(e) => onChangeForcePointY(Number(e.target.value))}

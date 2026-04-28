@@ -8,7 +8,7 @@ import { calculatorService, type PrincipalMomentsOutput } from "@/services";
 export default function NormalStressCalculator() {
   const [formula, setFormula] = useState("");
   const [force, setForce] = useState({ x: 0, y: 0, z: 0 });
-  const [forcePoint, setForcePoint] = useState({ y: 0, z: 0 });
+  const [forcePoint, setForcePoint] = useState({ x: 0, y: 0, z: 0 });
   const [results, setResults] = useState<PrincipalMomentsOutput | null>(null);
   const calculate = useCallback(async () => {
     try {
@@ -40,6 +40,9 @@ export default function NormalStressCalculator() {
         onChangeForceX={(value) => setForce((prev) => ({ ...prev, x: value }))}
         onChangeForceY={(value) => setForce((prev) => ({ ...prev, y: value }))}
         onChangeForceZ={(value) => setForce((prev) => ({ ...prev, z: value }))}
+        onChangeForcePointX={(value) =>
+          setForcePoint((prev) => ({ ...prev, x: value }))
+        }
         onChangeForcePointY={(value) =>
           setForcePoint((prev) => ({ ...prev, y: value }))
         }

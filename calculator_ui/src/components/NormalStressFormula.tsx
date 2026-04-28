@@ -2,12 +2,11 @@ import TeX from "@matejmazur/react-katex";
 import type { PrincipalMomentsOutput } from "@/services";
 
 type Vector3 = { x: number; y: number; z: number };
-type Vector2 = { y: number; z: number };
 
 interface NormalStressFormulaProps {
   calculateResult: PrincipalMomentsOutput | null;
   force: Vector3;
-  forcePoint: Vector2;
+  forcePoint: Vector3;
 }
 
 const FORMULA = String.raw`\sigma_{x} = \frac{F_{N}}{A}+\frac{M_{z}y}{I_{z}}+\frac{M_{y}z}{I_{y}}`;
@@ -58,25 +57,33 @@ export default function NormalStressFormula({
 function getNormalStressFormula(
   result: PrincipalMomentsOutput,
   force: Vector3,
-  forcePoint: Vector2,
+  forcePoint: Vector3,
   moveCenter: boolean,
   rotated: boolean,
 ): string {
-  const fx = force.x;
+  const fx = force.x,
+    fy = force.y,
+    fz = force.z;
   const cos = Math.cos(result.theta);
   const sin = Math.sin(result.theta);
+  const px = forcePoint.x;
   let py = forcePoint.y,
     pz = forcePoint.z;
   if (moveCenter) {
-    py -= forcePoint.y;
-    pz -= forcePoint.z;
+    py -= result.yc;
+    pz -= result.zc;
   }
   if (rotated) {
-    py = py * cos + pz * sin;
-    pz = -py * sin + pz * cos;
+    const pyNew = py * cos + pz * sin;
+    const pzNew = -py * sin + pz * cos;
+    py = pyNew;
+    pz = pzNew;
   }
-  const my = pz * fx;
-  const mz = -py * fx;
+  // 外力简化到截面平面产生的弯矩:
+  // M = r × F = (x,y,z) × (Fx,Fy,Fz)
+  // My = Fx·z - Fz·x , Mz = Fy·x - Fx·y
+  const my = pz * fx - px * fz;
+  const mz = -py * fx + px * fy;
 
   return String.raw`\sigma_{x'} = ${fx / result.area} + ${mz / result.imin}y'+ ${my / result.imax}z'`;
 }
