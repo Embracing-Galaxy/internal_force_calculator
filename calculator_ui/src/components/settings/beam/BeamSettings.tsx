@@ -22,7 +22,6 @@ export default function BeamSettings({ onChange }: BeamPropertiesProps) {
             </FieldLabel>
             <Input
               id="beam-length"
-              type="number"
               min={0}
               onChange={(e) => {
                 const inputValue = e.target.value;

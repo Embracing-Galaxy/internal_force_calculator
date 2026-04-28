@@ -69,7 +69,6 @@ function SupportConfig({
             位置 (m)
           </Label>
           <Input
-            type="number"
             max={beamLength}
             value={support.position}
             onChange={handlePositionChange}

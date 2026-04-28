@@ -63,7 +63,6 @@ export default function LoadItem({
                 </FieldLabel>
                 <Input
                   id="start-position"
-                  type="number"
                   min={0}
                   max={beamLength}
                   value={load.startPosition}
@@ -88,7 +87,6 @@ export default function LoadItem({
                 </FieldLabel>
                 <Input
                   id="end-position"
-                  type="number"
                   min={0}
                   max={beamLength}
                   value={load.endPosition}
@@ -114,7 +112,6 @@ export default function LoadItem({
               </FieldLabel>
               <FieldContent>
                 <Input
-                  type="number"
                   value={load.magnitude}
                   onChange={(e) => {
                     const inputValue = e.target.value;
@@ -141,7 +138,6 @@ export default function LoadItem({
               </FieldLabel>
               <Input
                 id="pos"
-                type="number"
                 min={0}
                 max={beamLength}
                 value={load.position}
@@ -167,7 +163,6 @@ export default function LoadItem({
               </FieldLabel>
               <Input
                 id="magnitude"
-                type="number"
                 value={load.magnitude}
                 onChange={(e) => {
                   const inputValue = e.target.value;
