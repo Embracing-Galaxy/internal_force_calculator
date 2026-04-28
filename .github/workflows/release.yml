@@ -95,7 +95,7 @@ jobs:
 
           TAURI_CONF="calculator_ui/src-tauri/tauri.conf.json"
           tmp=$(mktemp)
-          jq --arg v "$VERSION" '.version = $v' "$TAURI_CONF" > "$tmp" && mv "$tmp" "$TAURI_CONF"
+          sed 's/\(\s*"version":\s*\)"[^"]*"/\1"'"$VERSION"'"/' "$TAURI_CONF" > "$tmp" && mv "$tmp" "$TAURI_CONF"
 
           sed "s/^version = .*/version = \"$VERSION\"/" "Cargo.toml" > "Cargo.toml.tmp" && mv "Cargo.toml.tmp" "Cargo.toml"
 
