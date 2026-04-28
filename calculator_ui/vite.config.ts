@@ -46,6 +46,10 @@ export default defineConfig(async () => {
         // tell vite to ignore watching `src-tauri`
         ignored: ["**/src-tauri/**"],
       },
+      forwardConsole: {
+        unhandledErrors: true,
+        logLevels: ["log", "warn", "error"],
+      },
     },
     optimizeDeps: {
       exclude: ["calculator_wasm"],

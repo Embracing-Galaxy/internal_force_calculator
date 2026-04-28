@@ -11,13 +11,8 @@ import {
 } from "@/components/ui/resizable";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useIsMobile } from "@/hooks/use-mobile.ts";
-import { sumForces } from "@/lib/beam-calculations";
-import {
-  type Beam,
-  type Load,
-  type SolverError,
-  SupportType,
-} from "@/types/beam";
+import { calculatorService, type LoadTypeRS } from "@/services";
+import { type Beam, SupportType } from "@/types/beam";
 
 export default function BeamCalculator() {
   const isMobile = useIsMobile();
@@ -28,24 +23,15 @@ export default function BeamCalculator() {
     loads: [],
   });
 
-  const [result, setResult] = useState<Load[] | null>(null);
+  const [combinedLoads, setCombinedLoads] = useState<LoadTypeRS[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const calculate = useCallback(() => {
+  const calculate = useCallback(async () => {
     setError(null);
 
     try {
-      const response = sumForces(beam);
-
-      if ("type" in response) {
-        const err = response as SolverError;
-        setError(err.message);
-        toast.error(`计算失败: ${err.message}`);
-        setResult(null);
-      } else {
-        setResult(response as Load[]);
-        toast.success("计算完成");
-      }
+      setCombinedLoads(await calculatorService.getCombinedLoads(beam));
+      toast.success("计算完成");
     } catch (e) {
       const msg = e instanceof Error ? e.message : "未知错误";
       setError(msg);
@@ -57,7 +43,7 @@ export default function BeamCalculator() {
     <div className="flex w-full">
       <main className="flex-1 relative h-screen">
         <SidebarTrigger className="absolute top-1 right-1 rotate-180 z-10" />
-        {!result ? (
+        {!combinedLoads ? (
           <BeamCanvas beam={beam} error={error} className="h-full" />
         ) : (
           <ResizablePanelGroup
@@ -69,12 +55,18 @@ export default function BeamCalculator() {
             <ResizableHandle withHandle />
             <ResizablePanel>
               <ResizablePanelGroup orientation="vertical">
-                <ResizablePanel defaultSize="50%">
-                  <ShearForceDiagram beam={beam} loads={result} />
+                <ResizablePanel
+                  defaultSize="50%"
+                  style={{ position: "relative" }}
+                >
+                  <ShearForceDiagram beam={beam} loads={combinedLoads} />
                 </ResizablePanel>
                 <ResizableHandle withHandle />
-                <ResizablePanel defaultSize="50%">
-                  <BendingMomentDiagram beam={beam} loads={result} />
+                <ResizablePanel
+                  defaultSize="50%"
+                  style={{ position: "relative" }}
+                >
+                  <BendingMomentDiagram beam={beam} loads={combinedLoads} />
                 </ResizablePanel>
               </ResizablePanelGroup>
             </ResizablePanel>

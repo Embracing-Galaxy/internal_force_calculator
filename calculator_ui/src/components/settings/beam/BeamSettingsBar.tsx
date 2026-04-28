@@ -25,7 +25,6 @@ export default function BeamSettingsBar({
   onCalculate,
 }: SettingsBarProps) {
   const handleLengthChange = (length: number) => {
-    // 检查并更新固定端位置
     const updatedSupportA =
       beam.supportA.type === SupportType.Fixed && beam.supportA.position !== 0
         ? { ...beam.supportA, position: length }
