@@ -1,8 +1,8 @@
 use meval::Expr;
 use serde::{Deserialize, Serialize};
 
-pub mod types;
 pub mod beam;
+pub mod types;
 
 pub type Vector2f64 = (f64, f64);
 pub type BoundingBox = (f64, f64, f64, f64);
