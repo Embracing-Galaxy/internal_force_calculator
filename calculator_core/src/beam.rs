@@ -177,10 +177,7 @@ fn collect_key_positions(beam_length: f64, loads: &[Load]) -> Vec<f64> {
 }
 
 /// 生成剪力图数据点（含突变处理）
-pub fn generate_shear_data(
-    beam_length: f64,
-    combined_loads: &[Load],
-) -> Vec<DataPoint> {
+pub fn generate_shear_data(beam_length: f64, combined_loads: &[Load]) -> Vec<DataPoint> {
     let sorted_positions = collect_key_positions(beam_length, combined_loads);
     let mut shear_data = Vec::new();
     for pos in sorted_positions {
@@ -220,7 +217,7 @@ pub fn generate_moment_data(
 
         moment_data.push(DataPoint::new(right, m_right_minus));
 
-        if (m_right_plus - m_right_minus).abs() > 1e-6 {
+        if (m_right_plus - m_right_minus).abs() > 1e-6 && right + 1e-9 < beam_length {
             moment_data.push(DataPoint::new(right, m_right_plus));
         }
     }
