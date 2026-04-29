@@ -18,6 +18,7 @@ Cargo.lock
 calculator_wasm/pkg/
 
 # AI
-.opencode/
+**/.opencode/
 **/AGENTS.md
-skills-lock.json
+**/.sisyphus/
+**/skills-lock.json
