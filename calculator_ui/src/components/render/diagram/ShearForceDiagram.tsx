@@ -10,24 +10,23 @@ import {
   YAxis,
 } from "recharts";
 import { calculatorService, type DataPoint, type LoadTypeRS } from "@/services";
-import type { Beam } from "@/types/beam";
 
 interface ShearForceDiagramProps {
-  beam: Beam;
+  beamLen: number;
   loads: LoadTypeRS[];
 }
 
 export default function ShearForceDiagram({
-  beam,
+  beamLen,
   loads,
 }: ShearForceDiagramProps) {
   const [shearData, setShearData] = useState<DataPoint[]>([]);
 
   useEffect(() => {
-    calculatorService.generateShearData(beam.length, loads).then((data) => {
+    calculatorService.generateShearData(beamLen, loads).then((data) => {
       setShearData(data);
     });
-  }, [beam, loads]);
+  }, [beamLen, loads]);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
@@ -41,7 +40,7 @@ export default function ShearForceDiagram({
           <XAxis
             dataKey="x"
             type="number"
-            domain={[0, beam.length]}
+            domain={[0, beamLen]}
             axisLine={false}
             label={{ value: "x (m)", position: "insideBottom", offset: -5 }}
           />

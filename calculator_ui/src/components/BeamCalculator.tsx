@@ -59,14 +59,20 @@ export default function BeamCalculator() {
                   defaultSize="50%"
                   style={{ position: "relative" }}
                 >
-                  <ShearForceDiagram beam={beam} loads={combinedLoads} />
+                  <ShearForceDiagram
+                    beamLen={beam.length}
+                    loads={combinedLoads}
+                  />
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel
                   defaultSize="50%"
                   style={{ position: "relative" }}
                 >
-                  <BendingMomentDiagram beam={beam} loads={combinedLoads} />
+                  <BendingMomentDiagram
+                    beamLen={beam.length}
+                    loads={combinedLoads}
+                  />
                 </ResizablePanel>
               </ResizablePanelGroup>
             </ResizablePanel>
