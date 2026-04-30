@@ -70,3 +70,26 @@ impl DataPoint {
         DataPoint { x, value }
     }
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct PrincipalMomentOutput {
+    area: f64,
+    yc: f64,
+    zc: f64,
+    imin: f64,
+    imax: f64,
+    theta: f64,
+}
+
+impl PrincipalMomentOutput {
+    pub fn new(area: f64, yc: f64, zc: f64, imin: f64, imax: f64, theta: f64) -> Self {
+        Self {
+            area,
+            yc,
+            zc,
+            imin,
+            imax,
+            theta,
+        }
+    }
+}

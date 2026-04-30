@@ -24,7 +24,7 @@ pub fn get_combined_loads(
     let support_a: SupportConfig = serde_wasm_bindgen::from_value(support_a)?;
     let support_b: SupportConfig = serde_wasm_bindgen::from_value(support_b)?;
     let loads: Vec<Load> = serde_wasm_bindgen::from_value(loads)?;
-    let result = core::beam::get_combined_loads(beam_length, &support_a, &support_b, &loads)
+    let result = core::get_combined_loads(beam_length, &support_a, &support_b, &loads)
         .map_err(|e| JsError::new(&e))?;
     Ok(serde_wasm_bindgen::to_value(&result)?)
 }
@@ -32,7 +32,7 @@ pub fn get_combined_loads(
 #[wasm_bindgen]
 pub fn generate_shear_data(beam_length: f64, combined_loads: JsValue) -> Result<JsValue, JsError> {
     let combined_loads: Vec<Load> = serde_wasm_bindgen::from_value(combined_loads)?;
-    let result = core::beam::generate_shear_data(beam_length, &combined_loads);
+    let result = core::generate_shear_data(beam_length, &combined_loads);
     Ok(serde_wasm_bindgen::to_value(&result)?)
 }
 
@@ -43,6 +43,6 @@ pub fn generate_moment_data(
     step: f64,
 ) -> Result<JsValue, JsError> {
     let combined_loads: Vec<Load> = serde_wasm_bindgen::from_value(combined_loads)?;
-    let result = core::beam::generate_moment_data(beam_length, &combined_loads, step);
+    let result = core::generate_moment_data(beam_length, &combined_loads, step);
     Ok(serde_wasm_bindgen::to_value(&result)?)
 }
