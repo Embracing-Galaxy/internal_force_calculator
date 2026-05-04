@@ -78,10 +78,6 @@ jobs:
           tool: wasm-bindgen,wasm-pack
 
       - uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: |
-            .
-            calculator_ui/src-tauri
 
       - name: Sync Version from Tag
         shell: bash

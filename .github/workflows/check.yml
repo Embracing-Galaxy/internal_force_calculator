@@ -28,12 +28,7 @@ jobs:
         run: biome ci .
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
-      - name: Rust Cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: |
-            .
-            calculator_ui/src-tauri
+      - uses: Swatinem/rust-cache@v2
       - name: Install linux dependencies
         run: |
           sudo apt-get update
