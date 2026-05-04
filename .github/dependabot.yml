@@ -19,6 +19,8 @@ updates:
       npm-deps:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "calculator_wasm"
 
   # Maintain GitHub Actions
   - package-ecosystem: "github-actions"
