@@ -34,7 +34,14 @@ jobs:
           workspaces: |
             .
             calculator_ui/src-tauri
-      - name: Run cargo fmt & clippy & test
+      - name: Install linux dependencies
         run: |
-          cargo fmt --check
-          cargo clippy
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev rpm
+
+      - name: Run cargo fmt
+        run: cargo fmt --check
+      - name: Run cargo clippy
+        run: cargo clippy
+      - name: Run cargo test
+        run: cargo test -p calculator_core
