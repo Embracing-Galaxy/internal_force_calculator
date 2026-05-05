@@ -5,7 +5,8 @@ import {
   type DataPoint,
   type ICalculatorService,
   type LoadTypeRS,
-  type PrincipalMomentsOutput,
+  type PrincipalInertiaProps,
+  type PrincipalStressOutput,
 } from "@/services/interface.ts";
 import type { Beam } from "@/types/beam";
 
@@ -14,7 +15,7 @@ export default class WebCalculatorService implements ICalculatorService {
     equation: string,
     ny: number,
     nz: number,
-  ): Promise<PrincipalMomentsOutput> {
+  ): Promise<PrincipalInertiaProps> {
     return calculator_wasm.principal_inertia(equation, ny, nz);
   }
 
@@ -40,5 +41,9 @@ export default class WebCalculatorService implements ICalculatorService {
     step: number,
   ): Promise<DataPoint[]> {
     return calculator_wasm.generate_moment_data(length, combinedLoads, step);
+  }
+
+  async getPrincipalStresses(tensor: number[]): Promise<PrincipalStressOutput> {
+    return calculator_wasm.principal_stresses(tensor);
   }
 }

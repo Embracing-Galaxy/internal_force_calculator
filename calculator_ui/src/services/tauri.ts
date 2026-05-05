@@ -8,8 +8,10 @@ import {
   type ICalculatorService,
   LoadSchema,
   type LoadTypeRS,
-  type PrincipalMomentsOutput,
+  type PrincipalInertiaProps,
   PrincipalMomentsOutputSchema,
+  type PrincipalStressOutput,
+  PrincipalStressOutputSchema,
 } from "./interface.ts";
 
 export default class TauriCalculatorService implements ICalculatorService {
@@ -17,7 +19,7 @@ export default class TauriCalculatorService implements ICalculatorService {
     equation: string,
     ny: number,
     nz: number,
-  ): Promise<PrincipalMomentsOutput> {
+  ): Promise<PrincipalInertiaProps> {
     const result = await invoke("principal_inertia", {
       equation,
       ny,
@@ -59,5 +61,10 @@ export default class TauriCalculatorService implements ICalculatorService {
       step,
     });
     return DataPointSchema.array().parse(result);
+  }
+
+  async getPrincipalStresses(tensor: number[]): Promise<PrincipalStressOutput> {
+    const result = await invoke("get_principal_stresses", { tensor });
+    return PrincipalStressOutputSchema.parse(result);
   }
 }

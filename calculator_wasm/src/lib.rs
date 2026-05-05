@@ -41,3 +41,10 @@ pub fn generate_moment_data(
     let result = core::generate_moment_data(beam_length, &combined_loads, step);
     Ok(serde_wasm_bindgen::to_value(&result)?)
 }
+
+#[wasm_bindgen]
+pub fn principal_stresses(tensor: JsValue) -> Result<JsValue, JsError> {
+    let tensor: core::StressTensor = serde_wasm_bindgen::from_value(tensor)?;
+    let result = core::principal_stresses(tensor).map_err(|e| JsError::new(&e))?;
+    Ok(serde_wasm_bindgen::to_value(&result)?)
+}

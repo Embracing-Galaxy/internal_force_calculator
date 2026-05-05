@@ -94,6 +94,16 @@ export function convertSupportConfig(config: SupportConfig) {
   };
 }
 
+export const PrincipalStressOutputSchema = z.object({
+  sigma_1: z.number(),
+  sigma_2: z.number(),
+  sigma_3: z.number(),
+  direction_1: z.array(z.number()).length(3),
+  direction_2: z.array(z.number()).length(3),
+  direction_3: z.array(z.number()).length(3),
+});
+export type PrincipalStressOutput = z.infer<typeof PrincipalStressOutputSchema>;
+
 export interface ICalculatorService {
   principalInertiaProps(
     equation: string,
@@ -110,4 +120,5 @@ export interface ICalculatorService {
     combinedLoads: LoadTypeRS[],
     step: number,
   ): Promise<DataPoint[]>;
+  getPrincipalStresses(tensor: number[]): Promise<PrincipalStressOutput>;
 }

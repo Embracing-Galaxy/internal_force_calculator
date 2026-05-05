@@ -1,4 +1,5 @@
 use calculator_core as core;
+use core::{principal_stresses, PrincipalStressResult, StressTensor};
 use core::types::{DataPoint, Load, PrincipalInertiaProps, SupportConfig};
 
 type Output = PrincipalInertiaProps;
@@ -28,6 +29,11 @@ fn gen_moment_data(beam_length: f64, combined_loads: Vec<Load>, step: f64) -> Ve
     core::generate_moment_data(beam_length, &combined_loads, step)
 }
 
+#[tauri::command]
+fn get_principal_stresses(tensor: StressTensor) -> Result<PrincipalStressResult, String> {
+    principal_stresses(tensor)
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -36,7 +42,8 @@ pub fn run() {
             principal_inertia,
             get_combined_loads,
             gen_shear_data,
-            gen_moment_data
+            gen_moment_data,
+            get_principal_stresses
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
