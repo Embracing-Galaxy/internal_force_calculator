@@ -1,11 +1,11 @@
 use calculator_core as core;
-use core::types::{DataPoint, Load, PrincipalMomentOutput, SupportConfig};
+use core::types::{DataPoint, Load, PrincipalInertiaProps, SupportConfig};
 
-type Output = PrincipalMomentOutput;
+type Output = PrincipalInertiaProps;
 
 #[tauri::command]
-fn get_principal_moments(equation: &str, ny: usize, nz: usize) -> Result<Output, String> {
-    core::principal_moments_and_transform(equation, ny, nz)
+fn principal_inertia(equation: &str, ny: usize, nz: usize) -> Result<Output, String> {
+    core::principal_inertia(equation, ny, nz)
 }
 
 #[tauri::command]
@@ -33,7 +33,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
-            get_principal_moments,
+            principal_inertia,
             get_combined_loads,
             gen_shear_data,
             gen_moment_data

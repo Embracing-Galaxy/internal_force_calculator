@@ -12,7 +12,7 @@ export default function NormalStressCalculator() {
   const [results, setResults] = useState<PrincipalMomentsOutput | null>(null);
   const calculate = useCallback(async () => {
     try {
-      const result = await calculatorService.getPrincipalMoments(
+      const result = await calculatorService.principalInertiaProps(
         formula,
         400,
         400,

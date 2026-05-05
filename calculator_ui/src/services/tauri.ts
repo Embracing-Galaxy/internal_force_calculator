@@ -13,12 +13,12 @@ import {
 } from "./interface.ts";
 
 export default class TauriCalculatorService implements ICalculatorService {
-  async getPrincipalMoments(
+  async principalInertiaProps(
     equation: string,
     ny: number,
     nz: number,
   ): Promise<PrincipalMomentsOutput> {
-    const result = await invoke("get_principal_moments", {
+    const result = await invoke("principal_inertia", {
       equation,
       ny,
       nz,

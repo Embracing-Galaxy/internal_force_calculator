@@ -95,7 +95,7 @@ export function convertSupportConfig(config: SupportConfig) {
 }
 
 export interface ICalculatorService {
-  getPrincipalMoments(
+  principalInertiaProps(
     equation: string,
     ny: number,
     nz: number,

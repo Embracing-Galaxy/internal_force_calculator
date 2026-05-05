@@ -1,4 +1,4 @@
-use crate::types::PrincipalMomentOutput;
+use crate::types::PrincipalInertiaProps;
 use meval::Expr;
 
 pub type BoundingBox = (f64, f64, f64, f64);
@@ -20,11 +20,11 @@ pub type BoundingBox = (f64, f64, f64, f64);
 ///
 /// # 错误
 /// 当方程解析失败，或区域内无积分点（可能包围盒过小或方程符号错误）时返回 `Err`。
-pub fn principal_moments_and_transform(
+pub fn principal_inertia(
     equation: &str,
     ny: usize,
     nz: usize,
-) -> Result<PrincipalMomentOutput, String> {
+) -> Result<PrincipalInertiaProps, String> {
     let f = parse_expr(equation)?;
     let bounding_box = auto_bounding_box(&f, 0.01, 0.1);
     principal_moments_and_transform_inner(f, bounding_box, ny, nz)
@@ -44,7 +44,7 @@ fn principal_moments_and_transform_inner(
     bounding_box: BoundingBox,
     ny: usize,
     nz: usize,
-) -> Result<PrincipalMomentOutput, String> {
+) -> Result<PrincipalInertiaProps, String> {
     // 网格积分
     let (ymin, ymax, zmin, zmax) = bounding_box;
     let dy = (ymax - ymin) / ny as f64;
@@ -112,7 +112,7 @@ fn principal_moments_and_transform_inner(
         theta + std::f64::consts::FRAC_PI_2
     };
 
-    Ok(PrincipalMomentOutput::new(area, yc, zc, imin, imax, theta))
+    Ok(PrincipalInertiaProps::new(area, yc, zc, imin, imax, theta))
 }
 
 /// 自动确定隐式方程 f(y,z) ≤ 0 所围封闭区域的包围盒

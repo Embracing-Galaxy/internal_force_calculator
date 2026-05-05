@@ -10,12 +10,12 @@ import {
 import type { Beam } from "@/types/beam";
 
 export default class WebCalculatorService implements ICalculatorService {
-  async getPrincipalMoments(
+  async principalInertiaProps(
     equation: string,
     ny: number,
     nz: number,
   ): Promise<PrincipalMomentsOutput> {
-    return calculator_wasm.principal_moments_and_transform(equation, ny, nz);
+    return calculator_wasm.principal_inertia(equation, ny, nz);
   }
 
   async getCombinedLoads(beam: Beam): Promise<LoadTypeRS[]> {

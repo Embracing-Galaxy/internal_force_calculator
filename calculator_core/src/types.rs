@@ -72,7 +72,7 @@ impl DataPoint {
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct PrincipalMomentOutput {
+pub struct PrincipalInertiaProps {
     area: f64,
     yc: f64,
     zc: f64,
@@ -81,7 +81,7 @@ pub struct PrincipalMomentOutput {
     theta: f64,
 }
 
-impl PrincipalMomentOutput {
+impl PrincipalInertiaProps {
     pub fn new(area: f64, yc: f64, zc: f64, imin: f64, imax: f64, theta: f64) -> Self {
         Self {
             area,
