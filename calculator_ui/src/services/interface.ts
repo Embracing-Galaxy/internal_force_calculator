@@ -15,7 +15,7 @@ export const PrincipalMomentsOutputSchema = z.object({
   imax: z.number(),
   theta: z.number(),
 });
-export type PrincipalMomentsOutput = z.infer<
+export type PrincipalInertiaProps = z.infer<
   typeof PrincipalMomentsOutputSchema
 >;
 
@@ -99,7 +99,7 @@ export interface ICalculatorService {
     equation: string,
     ny: number,
     nz: number,
-  ): Promise<PrincipalMomentsOutput>;
+  ): Promise<PrincipalInertiaProps>;
   getCombinedLoads(beam: Beam): Promise<LoadTypeRS[]>;
   generateShearData(
     length: number,

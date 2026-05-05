@@ -3,13 +3,13 @@ import { toast } from "sonner";
 import NormalStressFormula from "@/components/NormalStressFormula";
 import SectionSettingsBar from "@/components/settings/normal/SectionSettingsBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { calculatorService, type PrincipalMomentsOutput } from "@/services";
+import { calculatorService, type PrincipalInertiaProps } from "@/services";
 
 export default function NormalStressCalculator() {
   const [formula, setFormula] = useState("");
   const [force, setForce] = useState({ x: 0, y: 0, z: 0 });
   const [forcePoint, setForcePoint] = useState({ x: 0, y: 0, z: 0 });
-  const [results, setResults] = useState<PrincipalMomentsOutput | null>(null);
+  const [results, setResults] = useState<PrincipalInertiaProps | null>(null);
   const calculate = useCallback(async () => {
     try {
       const result = await calculatorService.principalInertiaProps(

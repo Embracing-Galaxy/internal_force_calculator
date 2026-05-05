@@ -1,10 +1,10 @@
 import TeX from "@matejmazur/react-katex";
-import type { PrincipalMomentsOutput } from "@/services";
+import type { PrincipalInertiaProps } from "@/services";
 
 type Vector3 = { x: number; y: number; z: number };
 
 interface NormalStressFormulaProps {
-  calculateResult: PrincipalMomentsOutput | null;
+  calculateResult: PrincipalInertiaProps | null;
   force: Vector3;
   forcePoint: Vector3;
 }
@@ -55,7 +55,7 @@ export default function NormalStressFormula({
 }
 
 function getNormalStressFormula(
-  result: PrincipalMomentsOutput,
+  result: PrincipalInertiaProps,
   force: Vector3,
   forcePoint: Vector3,
   moveCenter: boolean,
