@@ -67,7 +67,7 @@ export default function LoadList({
     label,
     type,
   }: {
-    icon: React.ElementType;
+    icon: React.ComponentType<{ className?: string }>;
     label: string;
     type: LoadType;
   }) => (
