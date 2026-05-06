@@ -84,8 +84,8 @@ export default function StressStateCalculator() {
     <div className="flex w-full h-screen">
       <main className="flex-1 relative h-screen">
         <SidebarTrigger className="absolute top-1 right-1 rotate-180 z-10" />
-        <div className="flex flex-row h-full">
-          <div className="flex-5 min-w-0">
+        <div className="flex flex-col md:flex-row h-full">
+          <div className="flex-1 min-w-0">
             <StressCube3D
               tensor={tensor}
               principalStresses={result}
@@ -93,7 +93,7 @@ export default function StressStateCalculator() {
               className="w-full h-full"
             />
           </div>
-          <div className="flex-5 min-w-0 border-l border-border">
+          <div className="flex-1 min-w-0 min-h-36 md:border-l border-t md:border-t-0 border-border">
             {result ? (
               <MohrCircles
                 sigma1={result.sigma_1}
