@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import NormalStressFormula from "@/components/NormalStressFormula";
+import NormalStressFormula from "@/components/render/normal/NormalStressFormula";
 import SectionSettingsBar from "@/components/settings/normal/SectionSettingsBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { calculatorService, type PrincipalInertiaProps } from "@/services";

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
-import MohrCircles from "@/components/render/MohrCircles";
-import StressCube3D from "@/components/render/StressCube3D";
+import MohrCircles from "@/components/render/stress/MohrCircles";
+import StressCube3D from "@/components/render/stress/StressCube3D";
 import StressStateSidebar from "@/components/settings/stress/StressStateSidebar.tsx";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
