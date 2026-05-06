@@ -2,6 +2,7 @@ import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import viteCompression from "vite-plugin-compression2";
 import wasm from "vite-plugin-wasm";
 
 const host = process.env.TAURI_DEV_HOST;
@@ -13,7 +14,7 @@ export default defineConfig(async () => {
 
   return {
     base: "./",
-    plugins: [react(), tailwindcss(), wasm()],
+    plugins: [react(), tailwindcss(), viteCompression(), wasm()],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
