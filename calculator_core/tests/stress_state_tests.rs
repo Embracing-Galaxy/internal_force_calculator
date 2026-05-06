@@ -1,4 +1,4 @@
-use calculator_core::{principal_stresses, PrincipalStressResult, StressTensor};
+use calculator_core::{PrincipalStressResult, StressTensor, principal_stresses};
 
 const EPSILON: f64 = 1e-9;
 

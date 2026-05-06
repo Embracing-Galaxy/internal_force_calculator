@@ -1,6 +1,6 @@
 use calculator_core as core;
-use core::{principal_stresses, PrincipalStressResult, StressTensor};
 use core::types::{DataPoint, Load, PrincipalInertiaProps, SupportConfig};
+use core::{PrincipalStressResult, StressTensor, principal_stresses};
 
 type Output = PrincipalInertiaProps;
 
