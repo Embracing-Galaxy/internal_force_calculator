@@ -50,7 +50,7 @@ interface ArrowProps {
   direction: [number, number, number];
   length: number;
   color: string;
-  label?: string;
+  label: string;
 }
 
 // ─── KaTeX Label in 3D ───────────────────────────────────────────────────────
@@ -68,7 +68,7 @@ function KaTeXLabel({
 }) {
   const html = useMemo(() => tex(latex), [latex]);
   return (
-    <Html position={position} center>
+    <Html position={position} center zIndexRange={[40, 0]}>
       <span
         style={{
           color,
