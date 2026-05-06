@@ -21,6 +21,11 @@ export default defineConfig(async () => {
           __dirname,
           `./src/services/${serviceType}`,
         ),
+        // jsxgraph exports field doesn't expose CSS; alias resolves it directly
+        "@jsxgraph.css": path.resolve(
+          __dirname,
+          "node_modules/jsxgraph/distrib/jsxgraph.css",
+        ),
       },
     },
 

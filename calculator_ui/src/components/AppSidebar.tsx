@@ -1,4 +1,10 @@
-import { ArrowDownUp, BadgeInfo, ChartArea, GitBranch } from "lucide-react";
+import {
+  ArrowDownUp,
+  BadgeInfo,
+  Box,
+  ChartArea,
+  GitBranch,
+} from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import pkg from "@/../package.json";
@@ -22,6 +28,7 @@ import {
 const navItems = [
   { to: "/", icon: ChartArea, tooltip: "梁内力" },
   { to: "/normal-stress", icon: ArrowDownUp, tooltip: "正应力" },
+  { to: "/stress-state", icon: Box, tooltip: "应力状态" },
 ];
 
 export default function AppSidebar() {
