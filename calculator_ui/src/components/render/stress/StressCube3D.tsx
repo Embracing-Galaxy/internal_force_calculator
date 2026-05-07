@@ -365,7 +365,7 @@ function OriginalStressArrows({ tensor }: { tensor: number[][] }) {
 
   // +Y face
   tryAddArrow([0, HALF_SIZE, 0], [0, 1, 0], sigma_y, "\\sigma_y");
-  tryAddArrow([0, HALF_SIZE, 0], [1, 0, 0], tau_xy, "\\tau_xy");
+  tryAddArrow([0, HALF_SIZE, 0], [1, 0, 0], tau_xy, "\\tau_{xy}");
   tryAddArrow([0, HALF_SIZE, 0], [0, 0, 1], tau_yz, "\\tau_{yz}");
 
   // -Y face
