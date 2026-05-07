@@ -93,7 +93,7 @@ export default function StressStateCalculator() {
           <div className="flex-1 min-w-0">
             <Suspense
               fallback={
-                <div className="items-center justify-center text-muted-foreground">
+                <div className="flex h-full w-full items-center justify-center text-muted-foreground">
                   加载中...
                 </div>
               }
@@ -108,13 +108,7 @@ export default function StressStateCalculator() {
           </div>
           <div className="flex-1 min-w-0 min-h-36 md:border-l border-t md:border-t-0 border-border">
             {result ? (
-              <Suspense
-                fallback={
-                  <div className="items-center justify-center text-muted-foreground">
-                    加载中...
-                  </div>
-                }
-              >
+              <Suspense>
                 <MohrCircles
                   sigma1={result.sigma_1}
                   sigma2={result.sigma_2}
