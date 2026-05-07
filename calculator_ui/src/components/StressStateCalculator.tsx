@@ -93,7 +93,7 @@ export default function StressStateCalculator() {
           <div className="flex-1 min-w-0">
             <Suspense
               fallback={
-                <div className="flex h-screen w-screen items-center justify-center text-muted-foreground">
+                <div className="items-center justify-center text-muted-foreground">
                   加载中...
                 </div>
               }
@@ -110,7 +110,7 @@ export default function StressStateCalculator() {
             {result ? (
               <Suspense
                 fallback={
-                  <div className="flex h-screen w-screen items-center justify-center text-muted-foreground">
+                  <div className="items-center justify-center text-muted-foreground">
                     加载中...
                   </div>
                 }
