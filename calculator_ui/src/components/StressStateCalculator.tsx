@@ -1,11 +1,16 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
-import MohrCircles from "@/components/render/stress/MohrCircles";
-import StressCube3D from "@/components/render/stress/StressCube3D";
 import StressStateSidebar from "@/components/settings/stress/StressStateSidebar.tsx";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { calculatorService, type PrincipalStressOutput } from "@/services";
+
+const MohrCircles = lazy(
+  () => import("@/components/render/stress/MohrCircles"),
+);
+const StressCube3D = lazy(
+  () => import("@/components/render/stress/StressCube3D"),
+);
 
 type DisplayMode = "original" | "principal";
 
@@ -86,21 +91,37 @@ export default function StressStateCalculator() {
         <SidebarTrigger className="absolute top-1 right-1 rotate-180 z-10" />
         <div className="flex flex-col md:flex-row h-full">
           <div className="flex-1 min-w-0">
-            <StressCube3D
-              tensor={tensor}
-              principalStresses={result}
-              mode={mode}
-              className="w-full h-full"
-            />
+            <Suspense
+              fallback={
+                <div className="flex h-screen w-screen items-center justify-center text-muted-foreground">
+                  加载中...
+                </div>
+              }
+            >
+              <StressCube3D
+                tensor={tensor}
+                principalStresses={result}
+                mode={mode}
+                className="w-full h-full"
+              />
+            </Suspense>
           </div>
           <div className="flex-1 min-w-0 min-h-36 md:border-l border-t md:border-t-0 border-border">
             {result ? (
-              <MohrCircles
-                sigma1={result.sigma_1}
-                sigma2={result.sigma_2}
-                sigma3={result.sigma_3}
-                className="w-full h-full"
-              />
+              <Suspense
+                fallback={
+                  <div className="flex h-screen w-screen items-center justify-center text-muted-foreground">
+                    加载中...
+                  </div>
+                }
+              >
+                <MohrCircles
+                  sigma1={result.sigma_1}
+                  sigma2={result.sigma_2}
+                  sigma3={result.sigma_3}
+                  className="w-full h-full"
+                />
+              </Suspense>
             ) : (
               <div className="flex items-center justify-center h-full text-muted-foreground">
                 请先计算应力状态
