@@ -46,8 +46,8 @@ export default function MohrCircles({
     const xMin = Math.min(0, sigma3) - padding;
     const xMax = Math.max(0, sigma1) + padding;
     const tauMaxY = Math.abs(sigma1 - sigma3) / 2;
-    const yMin = -(tauMaxY * 0.15 + 0.5);
-    const yMax = tauMaxY + padding;
+    const yMax = tauMaxY + 0.5;
+    const yMin = -yMax;
 
     // Set background color on container
     containerRef.current.style.backgroundColor = bgColor;
