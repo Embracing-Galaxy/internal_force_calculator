@@ -365,23 +365,23 @@ function OriginalStressArrows({ tensor }: { tensor: number[][] }) {
 
   // +Y face
   tryAddArrow([0, HALF_SIZE, 0], [0, 1, 0], sigma_y, "\\sigma_y");
-  tryAddArrow([0, HALF_SIZE, 0], [1, 0, 0], tau_xy, "\\tau_{xy}");
+  tryAddArrow([0, HALF_SIZE, 0], [1, 0, 0], tau_xy, "\\tau_{yx}");
   tryAddArrow([0, HALF_SIZE, 0], [0, 0, 1], tau_yz, "\\tau_{yz}");
 
   // -Y face
   tryAddArrow([0, -HALF_SIZE, 0], [0, -1, 0], sigma_y, "\\sigma_y");
-  tryAddArrow([0, -HALF_SIZE, 0], [-1, 0, 0], tau_xy, "\\tau_{xy}");
+  tryAddArrow([0, -HALF_SIZE, 0], [-1, 0, 0], tau_xy, "\\tau_{yx}");
   tryAddArrow([0, -HALF_SIZE, 0], [0, 0, -1], tau_yz, "\\tau_{yz}");
 
   // +Z face
   tryAddArrow([0, 0, HALF_SIZE], [0, 0, 1], sigma_z, "\\sigma_z");
-  tryAddArrow([0, 0, HALF_SIZE], [1, 0, 0], tau_xz, "\\tau_{xz}");
-  tryAddArrow([0, 0, HALF_SIZE], [0, 1, 0], tau_yz, "\\tau_{yz}");
+  tryAddArrow([0, 0, HALF_SIZE], [1, 0, 0], tau_xz, "\\tau_{zx}");
+  tryAddArrow([0, 0, HALF_SIZE], [0, 1, 0], tau_yz, "\\tau_{zy}");
 
   // -Z face
   tryAddArrow([0, 0, -HALF_SIZE], [0, 0, -1], sigma_z, "\\sigma_z");
-  tryAddArrow([0, 0, -HALF_SIZE], [-1, 0, 0], tau_xz, "\\tau_{xz}");
-  tryAddArrow([0, 0, -HALF_SIZE], [0, -1, 0], tau_yz, "\\tau_{yz}");
+  tryAddArrow([0, 0, -HALF_SIZE], [-1, 0, 0], tau_xz, "\\tau_{zx}");
+  tryAddArrow([0, 0, -HALF_SIZE], [0, -1, 0], tau_yz, "\\tau_{zy}");
 
   return (
     <group>
