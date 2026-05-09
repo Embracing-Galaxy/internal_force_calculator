@@ -1,6 +1,5 @@
 import { z } from "zod";
 import {
-  type Beam,
   type Load,
   LoadType,
   type SupportConfig,
@@ -103,22 +102,3 @@ export const PrincipalStressOutputSchema = z.object({
   direction_3: z.array(z.number()).length(3),
 });
 export type PrincipalStressOutput = z.infer<typeof PrincipalStressOutputSchema>;
-
-export interface ICalculatorService {
-  principalInertiaProps(
-    equation: string,
-    ny: number,
-    nz: number,
-  ): Promise<PrincipalInertiaProps>;
-  getCombinedLoads(beam: Beam): Promise<LoadTypeRS[]>;
-  generateShearData(
-    length: number,
-    combinedLoads: LoadTypeRS[],
-  ): Promise<DataPoint[]>;
-  generateMomentData(
-    length: number,
-    combinedLoads: LoadTypeRS[],
-    step: number,
-  ): Promise<DataPoint[]>;
-  getPrincipalStresses(tensor: number[]): Promise<PrincipalStressOutput>;
-}

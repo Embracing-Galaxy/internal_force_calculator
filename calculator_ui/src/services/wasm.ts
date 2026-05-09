@@ -1,9 +1,9 @@
 import * as calculator_wasm from "calculator_wasm";
+import type { ICalculatorService } from "@/services/index.ts";
 import {
   convertLoads,
   convertSupportConfig,
   type DataPoint,
-  type ICalculatorService,
   type LoadTypeRS,
   type PrincipalInertiaProps,
   type PrincipalStressOutput,

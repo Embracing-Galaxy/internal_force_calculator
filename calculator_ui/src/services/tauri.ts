@@ -1,11 +1,11 @@
 import { invoke } from "@tauri-apps/api/core";
+import type { ICalculatorService } from "@/services/index.ts";
 import type { Beam } from "@/types/beam";
 import {
   convertLoads,
   convertSupportConfig,
   type DataPoint,
   DataPointSchema,
-  type ICalculatorService,
   LoadSchema,
   type LoadTypeRS,
   type PrincipalInertiaProps,
