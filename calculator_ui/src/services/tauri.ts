@@ -1,6 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
 import type { ICalculatorService } from "@/services/index.ts";
-import type { Beam } from "@/types/beam";
 import {
   convertLoads,
   convertSupportConfig,
@@ -12,7 +11,8 @@ import {
   PrincipalMomentsOutputSchema,
   type PrincipalStressOutput,
   PrincipalStressOutputSchema,
-} from "./interface.ts";
+} from "@/services/types";
+import type { Beam } from "@/types/beam";
 
 export default class TauriCalculatorService implements ICalculatorService {
   async principalInertiaProps(

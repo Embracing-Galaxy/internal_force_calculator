@@ -4,8 +4,8 @@ import type {
   LoadTypeRS,
   PrincipalInertiaProps,
   PrincipalStressOutput,
-} from "@/services/interface.ts";
-import type { Beam } from "@/types/beam.ts";
+} from "@/services/types";
+import type { Beam } from "@/types/beam";
 
 export interface ICalculatorService {
   principalInertiaProps(
@@ -27,4 +27,4 @@ export interface ICalculatorService {
 }
 
 export const calculatorService: ICalculatorService = new CalculatorService();
-export * from "./interface";
+export * from "@/services/types";

@@ -7,7 +7,7 @@ import {
   type LoadTypeRS,
   type PrincipalInertiaProps,
   type PrincipalStressOutput,
-} from "@/services/interface.ts";
+} from "@/services/types";
 import type { Beam } from "@/types/beam";
 
 export default class WebCalculatorService implements ICalculatorService {
