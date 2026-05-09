@@ -4,6 +4,7 @@ import katex from "katex";
 import { useMemo } from "react";
 import { DoubleSide, Quaternion, Vector3 } from "three";
 import type { PrincipalStressOutput } from "@/services";
+import type { DisplayMode } from "@/types/stress-state";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -40,7 +41,7 @@ interface StressCube3DProps {
   /** Principal stress result from backend (null = no computation yet) */
   principalStresses: PrincipalStressOutput | null;
   /** Display mode */
-  mode: "original" | "principal";
+  mode: DisplayMode;
   /** CSS className for sizing */
   className?: string;
 }
@@ -460,7 +461,7 @@ function SceneContent({
 }: {
   tensor: number[][];
   principalStresses: PrincipalStressOutput | null;
-  mode: "original" | "principal";
+  mode: DisplayMode;
 }) {
   // Compute rotation matrix for principal mode
   const principalRotation = useMemo(() => {

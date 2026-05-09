@@ -4,6 +4,7 @@ import StressStateSidebar from "@/components/settings/stress/StressStateSidebar.
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { calculatorService, type PrincipalStressOutput } from "@/services";
+import type { DisplayMode } from "@/types/stress-state";
 
 const MohrCircles = lazy(
   () => import("@/components/render/stress/MohrCircles"),
@@ -11,8 +12,6 @@ const MohrCircles = lazy(
 const StressCube3D = lazy(
   () => import("@/components/render/stress/StressCube3D"),
 );
-
-type DisplayMode = "original" | "principal";
 
 /** Map (row, col) of a 3x3 symmetric tensor into the 6-component flat index. */
 function tensorIndex(row: number, col: number): number {
@@ -45,7 +44,6 @@ export default function StressStateCalculator() {
   ]);
   const [result, setResult] = useState<PrincipalStressOutput | null>(null);
   const [mode, setMode] = useState<DisplayMode>("original");
-  const [isCalculating, setIsCalculating] = useState(false);
   const [rawValues, setRawValues] = useState<Record<string, string>>({});
   const componentsRef = useRef(components);
   if (components !== componentsRef.current) {
@@ -57,8 +55,7 @@ export default function StressStateCalculator() {
 
   const handleTensorChange = useCallback(
     (row: number, col: number, value: string) => {
-      const num = value === "" ? 0 : parseFloat(value);
-      if (Number.isNaN(num)) return;
+      const num = parseFloat(value) || 0;
 
       const idx = tensorIndex(row, col);
       setComponents((prev) => {
@@ -73,15 +70,12 @@ export default function StressStateCalculator() {
   const tensor = useMemo(() => expandTensor(components), [components]);
 
   const calculate = useCallback(async () => {
-    setIsCalculating(true);
     try {
       const res = await calculatorService.getPrincipalStresses(components);
       toast.success("计算成功");
       setResult(res);
     } catch (e) {
       toast.error(`计算出错: ${e}`);
-    } finally {
-      setIsCalculating(false);
     }
   }, [components]);
 
@@ -126,10 +120,8 @@ export default function StressStateCalculator() {
       </main>
 
       <StressStateSidebar
-        tensor={tensor}
         mode={mode}
         result={result}
-        isCalculating={isCalculating}
         onTensorChange={handleTensorChange}
         onModeChange={setMode}
         onCalculate={calculate}

@@ -48,16 +48,3 @@ export interface Beam {
   supportB: SupportConfig;
   loads: Load[];
 }
-
-export interface SolverError {
-  type:
-    | "underconstrained"
-    | "overconstrained"
-    | "support_out_of_range"
-    | "overlapping_supports"
-    | "numerical_issue";
-  message: string;
-  details?: {
-    unknown_count?: number;
-  };
-}

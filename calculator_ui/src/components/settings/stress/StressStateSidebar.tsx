@@ -6,26 +6,21 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import type { PrincipalStressOutput } from "@/services";
+import type { DisplayMode, TensorChangeHandler } from "@/types/stress-state";
 import StressResultDisplay from "./StressResultDisplay";
 import TensorInput from "./TensorInput";
 
-type DisplayMode = "original" | "principal";
-
 interface StressStateSidebarProps {
-  tensor: number[][];
   mode: DisplayMode;
   result: PrincipalStressOutput | null;
-  isCalculating: boolean;
-  onTensorChange: (row: number, col: number, value: string) => void;
+  onTensorChange: TensorChangeHandler;
   onModeChange: (mode: DisplayMode) => void;
   onCalculate: () => void;
 }
 
 export default function StressStateSidebar({
-  tensor,
   mode,
   result,
-  isCalculating,
   onTensorChange,
   onModeChange,
   onCalculate,
@@ -40,7 +35,7 @@ export default function StressStateSidebar({
               <CardTitle className="text-sm">应力张量</CardTitle>
             </CardHeader>
             <CardContent>
-              <TensorInput tensor={tensor} onChange={onTensorChange} />
+              <TensorInput onChange={onTensorChange} />
             </CardContent>
           </Card>
 
@@ -76,12 +71,8 @@ export default function StressStateSidebar({
         </SidebarContent>
 
         <SidebarFooter>
-          <Button
-            onClick={onCalculate}
-            disabled={isCalculating}
-            className="w-full"
-          >
-            {isCalculating ? "计算中..." : "计算主应力"}
+          <Button onClick={onCalculate} className="w-full">
+            "计算主应力"
           </Button>
         </SidebarFooter>
       </Sidebar>
