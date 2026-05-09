@@ -17,7 +17,6 @@ export enum LoadType {
 }
 
 export interface BaseLoad {
-  id: string;
   magnitude: number;
 }
 

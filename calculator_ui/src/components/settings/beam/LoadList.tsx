@@ -1,11 +1,22 @@
 import { ArrowDownCircle, Plus, RotateCcw } from "lucide-react";
-import { nanoid } from "nanoid";
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarMenuSubItem } from "@/components/ui/sidebar";
 import { type Load, LoadType } from "@/types/beam";
 import CollapsibleSidebarMenu from "../CollapsibleSidebarMenu";
 import LoadItem from "./LoadItem";
+
+function loadKey(load: Load, index: number): string {
+  function posKey(load: Load) {
+    switch (load.type) {
+      case LoadType.DistributedLoad:
+        return `${load.startPosition}-${load.endPosition}`;
+      default:
+        return `${load.position}`;
+    }
+  }
+  return `${load.type}-${posKey(load)}-${load.magnitude}-${index}`;
+}
 
 interface LoadListProps {
   loads: Load[];
@@ -21,7 +32,6 @@ export default function LoadList({
   const addLoad = (type: LoadType) => {
     if (type === LoadType.DistributedLoad) {
       const newLoad: Load = {
-        id: nanoid(),
         type: LoadType.DistributedLoad,
         startPosition: 0,
         endPosition: beamLength,
@@ -30,7 +40,6 @@ export default function LoadList({
       onChange([...loads, newLoad]);
     } else {
       const newLoad: Load = {
-        id: nanoid(),
         position: beamLength / 2,
         magnitude: -10,
         type,
@@ -93,7 +102,7 @@ export default function LoadList({
 
       {loads.map((load, index) => (
         <LoadItem
-          key={load.id}
+          key={loadKey(load, index)}
           load={load}
           index={index}
           beamLength={beamLength}
