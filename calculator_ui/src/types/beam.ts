@@ -1,12 +1,12 @@
 export enum SupportType {
-  None = "none", // 无约束
-  Hinge = "hinge", // 铰支座
-  Roller = "roller", // 可动铰支座
-  Fixed = "fixed", // 固定端
+  None = "None", // 无约束
+  Hinge = "Hinge", // 铰支座
+  Roller = "Roller", // 可动铰支座
+  Fixed = "Fixed", // 固定端
 }
 
 export interface SupportConfig {
-  type: SupportType;
+  support_type: SupportType;
   position: number;
 }
 

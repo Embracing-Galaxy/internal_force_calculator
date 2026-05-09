@@ -1,10 +1,5 @@
 import { z } from "zod";
-import {
-  type Load,
-  LoadType,
-  type SupportConfig,
-  SupportType,
-} from "@/types/beam";
+import { type Load, LoadType } from "@/types/beam";
 
 export const PrincipalMomentsOutputSchema = z.object({
   area: z.number(),
@@ -77,20 +72,6 @@ export function convertLoads(loads: Load[]) {
         return {};
     }
   });
-}
-
-const typeMap: Record<SupportType, string> = {
-  [SupportType.None]: "None",
-  [SupportType.Hinge]: "Hinge",
-  [SupportType.Roller]: "Roller",
-  [SupportType.Fixed]: "Fixed",
-};
-
-export function convertSupportConfig(config: SupportConfig) {
-  return {
-    support_type: typeMap[config.type],
-    position: config.position,
-  };
 }
 
 export const PrincipalStressOutputSchema = z.object({

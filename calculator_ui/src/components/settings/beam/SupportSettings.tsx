@@ -37,7 +37,7 @@ function SupportConfig({
     }
     const value = parseFloat(inputValue) || 0;
     // 固定端只能在梁的两端
-    if (support.type === SupportType.Fixed) {
+    if (support.support_type === SupportType.Fixed) {
       const clampedValue = value < beamLength / 2 ? 0 : beamLength;
       onUpdate({ position: clampedValue });
     } else {
@@ -45,17 +45,17 @@ function SupportConfig({
     }
   };
 
-  const handleTypeChange = (type: SupportType) => {
+  const handleTypeChange = (support_type: SupportType) => {
     // 切换到固定端时，自动设置到最近的端点
-    if (type === SupportType.Fixed) {
+    if (support_type === SupportType.Fixed) {
       const position = support.position < beamLength / 2 ? 0 : beamLength;
-      onUpdate({ type, position });
+      onUpdate({ support_type, position });
     } else {
-      onUpdate({ type });
+      onUpdate({ support_type });
     }
   };
 
-  const positionDisabled = support.type === SupportType.Fixed;
+  const positionDisabled = support.support_type === SupportType.Fixed;
 
   return (
     <div className="p-2 space-y-2">
@@ -78,7 +78,7 @@ function SupportConfig({
         </div>
         <div className="space-y-1">
           <Label className="text-[10px] text-sidebar-foreground/70">类型</Label>
-          <Select value={support.type} onValueChange={handleTypeChange}>
+          <Select value={support.support_type} onValueChange={handleTypeChange}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>

@@ -26,12 +26,14 @@ export default function BeamSettingsBar({
 }: SettingsBarProps) {
   const handleLengthChange = (length: number) => {
     const updatedSupportA =
-      beam.supportA.type === SupportType.Fixed && beam.supportA.position !== 0
+      beam.supportA.support_type === SupportType.Fixed &&
+      beam.supportA.position !== 0
         ? { ...beam.supportA, position: length }
         : beam.supportA;
 
     const updatedSupportB =
-      beam.supportB.type === SupportType.Fixed && beam.supportB.position !== 0
+      beam.supportB.support_type === SupportType.Fixed &&
+      beam.supportB.position !== 0
         ? { ...beam.supportB, position: length }
         : beam.supportB;
 

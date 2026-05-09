@@ -18,8 +18,8 @@ export default function BeamCalculator() {
   const isMobile = useIsMobile();
   const [beam, setBeam] = useState<Beam>({
     length: 0,
-    supportA: { position: 0, type: SupportType.Hinge },
-    supportB: { position: 0.1, type: SupportType.Roller },
+    supportA: { position: 0, support_type: SupportType.Hinge },
+    supportB: { position: 0.1, support_type: SupportType.Roller },
     loads: [],
   });
 

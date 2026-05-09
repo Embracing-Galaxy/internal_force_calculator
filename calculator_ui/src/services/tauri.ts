@@ -2,7 +2,6 @@ import { invoke } from "@tauri-apps/api/core";
 import type { ICalculatorService } from "@/services/index.ts";
 import {
   convertLoads,
-  convertSupportConfig,
   type DataPoint,
   DataPointSchema,
   LoadSchema,
@@ -32,8 +31,8 @@ export default class TauriCalculatorService implements ICalculatorService {
     const converted = convertLoads(beam.loads);
     const result = await invoke("get_combined_loads", {
       beam_length: beam.length,
-      support_a: convertSupportConfig(beam.supportA),
-      support_b: convertSupportConfig(beam.supportB),
+      support_a: beam.supportA,
+      support_b: beam.supportB,
       loads: converted,
     });
     return LoadSchema.array().parse(result);

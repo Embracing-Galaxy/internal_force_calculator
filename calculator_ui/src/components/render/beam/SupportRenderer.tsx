@@ -20,7 +20,7 @@ function drawSupport(
   const pos = support.position;
   const x = offsetX + pos * pixelsPerMeter;
 
-  switch (support.type) {
+  switch (support.support_type) {
     case SupportType.Hinge:
       drawHinge(ctx, x, beamY + 8);
       break;

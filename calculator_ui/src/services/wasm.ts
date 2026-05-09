@@ -2,7 +2,6 @@ import * as calculator_wasm from "calculator_wasm";
 import type { ICalculatorService } from "@/services/index.ts";
 import {
   convertLoads,
-  convertSupportConfig,
   type DataPoint,
   type LoadTypeRS,
   type PrincipalInertiaProps,
@@ -22,8 +21,8 @@ export default class WebCalculatorService implements ICalculatorService {
   async getCombinedLoads(beam: Beam): Promise<LoadTypeRS[]> {
     return calculator_wasm.get_combined_loads(
       beam.length,
-      convertSupportConfig(beam.supportA),
-      convertSupportConfig(beam.supportB),
+      beam.supportA,
+      beam.supportB,
       convertLoads(beam.loads),
     );
   }
