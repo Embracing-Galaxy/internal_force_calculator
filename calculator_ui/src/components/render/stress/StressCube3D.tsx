@@ -1,10 +1,10 @@
-import { Grid, Html, Line, OrbitControls, Text } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import katex from "katex";
-import { useMemo } from "react";
-import { DoubleSide, Quaternion, Vector3 } from "three";
-import type { PrincipalStressOutput } from "@/services";
-import type { DisplayMode } from "@/types/stress-state";
+import {Grid, Html, Line, OrbitControls, Text} from "@react-three/drei";
+import {Canvas} from "@react-three/fiber";
+import {useMemo} from "react";
+import {DoubleSide, Quaternion, Vector3} from "three";
+import {tex} from "@/lib/utils.ts";
+import type {PrincipalStressOutput} from "@/services";
+import type {DisplayMode} from "@/types/stress-state";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -25,13 +25,7 @@ const COLORS = {
   axisY: "#22c55e",
   axisZ: "#3b82f6",
   grid: "#cbd5e1",
-  text: "#0f172a",
 };
-
-// ─── KaTeX Helper ─────────────────────────────────────────────────────────────
-
-const tex = (latex: string) =>
-  katex.renderToString(latex, { throwOnError: false, displayMode: false });
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 

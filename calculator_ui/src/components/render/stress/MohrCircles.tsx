@@ -1,10 +1,6 @@
 import JXG from "jsxgraph";
-import katex from "katex";
 import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
-
-const tex = (latex: string) =>
-  katex.renderToString(latex, { throwOnError: false, displayMode: false });
+import { cn, tex } from "@/lib/utils";
 
 interface MohrCirclesProps {
   sigma1: number;
