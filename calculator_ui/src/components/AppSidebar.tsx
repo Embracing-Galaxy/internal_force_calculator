@@ -39,12 +39,11 @@ export default function AppSidebar() {
       <SidebarContent>
         <SidebarMenu className="items-center">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.to;
             return (
               <SidebarMenuItem key={item.to}>
                 <SidebarMenuButton
                   asChild
-                  isActive={isActive}
+                  isActive={location.pathname === item.to}
                   tooltip={{
                     children: item.tooltip,
                     hidden: false,
