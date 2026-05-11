@@ -1,10 +1,10 @@
-import {Grid, Html, Line, OrbitControls, Text} from "@react-three/drei";
-import {Canvas} from "@react-three/fiber";
-import {useMemo} from "react";
-import {DoubleSide, Quaternion, Vector3} from "three";
-import {tex} from "@/lib/utils.ts";
-import type {PrincipalStressOutput} from "@/services";
-import type {DisplayMode} from "@/types/stress-state";
+import { Grid, Html, Line, OrbitControls, Text } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useMemo } from "react";
+import { DoubleSide, Quaternion, Vector3 } from "three";
+import { tex } from "@/lib/utils.ts";
+import type { PrincipalStressOutput } from "@/services";
+import type { DisplayMode } from "@/types/stress-state";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
