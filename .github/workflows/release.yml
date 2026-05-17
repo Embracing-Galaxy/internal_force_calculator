@@ -1,9 +1,9 @@
 name: Release
-run-name: ${{ github.event_name == 'workflow_dispatch' && format('Manual Build ({0})', github.ref_name) || format('Release {0}', github.ref_name) }}
+run-name: Release ${{ github.ref_name }}
 on:
   push:
     tags:
-      - v*
+      - 'v*'
   workflow_dispatch:
 
 permissions:
