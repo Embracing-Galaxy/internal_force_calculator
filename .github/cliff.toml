@@ -46,6 +46,9 @@ footer = ""
 [git]
 filter_unconventional = false
 skip_merges = true
+skip_commits = [
+    { message = "^chore: bump version to", author = "github-actions\\[bot\\]" },
+]
 commit_parsers = [
     { message = "^feat", group = "✨ Features" },
     { message = "^fix", group = "🐛 Bug Fixes" },
