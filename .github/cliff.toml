@@ -32,7 +32,7 @@ body = """
 
 ---
 
-{%- set base_url = "https://github.com/" ~ remote.github.owner ~ "/" ~ remote.github.repo -%}
+{% set base_url = "https://github.com/" ~ remote.github.owner ~ "/" ~ remote.github.repo -%}
 {%- if previous -%}
 {%- set compare = previous.version ~ "..." ~ version -%}
 Full Changelog: [{{ compare }}]({{ base_url }}/compare/{{ compare }})
@@ -51,6 +51,7 @@ commit_parsers = [
     { message = "^fix", group = "🐛 Bug Fixes" },
     { message = "^docs", group = "📚 Documentation" },
     { message = "^perf", group = "🚀 Performance" },
+    { message = "^style", group = "🎨 Style" },
     { message = "^refactor", group = "🚜 Refactor" },
     { message = "^test", group = "🧪 Testing" },
     { message = "^ci", group = "⚙️ CI" },
