@@ -33,8 +33,12 @@ body = """
 
 footer = """
 {%- set base_url = "https://github.com/" ~ remote.github.owner ~ "/" ~ remote.github.repo -%}
+{%- if previous -%}
 {%- set compare = previous.version ~ "..." ~ version -%}
 Full Changelog: [{{ compare }}]({{ base_url }}/compare/{{ compare }})
+{%- else -%}
+Full Changelog: [{{ version }}]({{ base_url }}/releases/tag/{{ version }})
+{%- endif -%}
 """
 
 [git]
@@ -56,4 +60,4 @@ commit_parsers = [
 
 [remote.github]
 owner = "Embracing-Galaxy"
-repo = "lx-music-sync-server-rs"
+repo = "internal_force_calculator"
