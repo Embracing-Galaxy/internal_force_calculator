@@ -201,6 +201,9 @@ jobs:
             if [ -n "$RPM" ]; then
               cp "$RPM" "upload_dist/${BASE_NAME}.rpm"
             fi
+          
+            # web
+            tar -cf upload_dist/web.tar.zst -C calculator_ui/dist .
           fi
 
           # macOS
@@ -209,11 +212,6 @@ jobs:
             if [ -n "$DMG" ]; then
               cp "$DMG" "upload_dist/${BASE_NAME}.dmg"
             fi
-          fi
-
-          # web
-          if [[ "$PLATFORM" == linux-x86_64 ]]; then
-            tar -cf upload_dist/web.tar.zst -C calculator_ui/dist .
           fi
 
       - name: Upload Desktop Assets
