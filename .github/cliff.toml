@@ -29,9 +29,9 @@ body = """
         {% endif -%}
     {% endfor -%}
 {% endfor -%}
-"""
 
-footer = """
+---
+
 {%- set base_url = "https://github.com/" ~ remote.github.owner ~ "/" ~ remote.github.repo -%}
 {%- if previous -%}
 {%- set compare = previous.version ~ "..." ~ version -%}
@@ -40,6 +40,8 @@ Full Changelog: [{{ compare }}]({{ base_url }}/compare/{{ compare }})
 Full Changelog: [{{ version }}]({{ base_url }}/releases/tag/{{ version }})
 {%- endif -%}
 """
+
+footer = ""
 
 [git]
 filter_unconventional = false
