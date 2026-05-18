@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/check.yml
 
   generate-changelog:
-    name: Generate changelog
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     outputs:
       release_body: ${{ steps.cliff.outputs.content }}
