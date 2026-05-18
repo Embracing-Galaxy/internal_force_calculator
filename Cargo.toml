@@ -9,3 +9,6 @@ edition = "2024"
 [profile.release]
 lto = "thin"
 strip = true
+
+[profile.release.package.calculator_wasm]
+strip = false
