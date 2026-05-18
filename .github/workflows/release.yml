@@ -160,8 +160,12 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           TARGET: ${{ matrix.target }}
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          VERSION=${VERSION%%-*}
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            VERSION="${{ github.ref_name }}"
+            VERSION=${VERSION#v}
+          else
+            VERSION="${GITHUB_SHA:0:7}"
+          fi
           BASE_NAME="Internal Force Calculator_${VERSION}_${PLATFORM}"
           mkdir -p upload_dist
 
