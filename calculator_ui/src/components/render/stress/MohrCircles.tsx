@@ -1,5 +1,12 @@
-import JXG from "jsxgraph";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { JSXGRAPH_THEME } from "@/components/render/jsxgraph/jsxgraphTheme";
+import {
+  createTooltip,
+  hideTooltip,
+  showTooltip,
+  TOOLTIP_THRESHOLD_FACTOR,
+} from "@/components/render/jsxgraph/jsxgraphTooltip";
+import { useJsxGraphBoard } from "@/components/render/jsxgraph/useJsxGraphBoard";
 import { cn, tex } from "@/lib/utils";
 
 interface MohrCirclesProps {
@@ -9,29 +16,21 @@ interface MohrCirclesProps {
   className?: string;
 }
 
+/**
+ * Interactive Mohr's circles diagram for 3D stress state.
+ *
+ * Displays three Mohr circles (σ₁-σ₂, σ₂-σ₃, σ₁-σ₃) along the σ axis
+ * with hover tooltips showing (σ, τ) coordinates on each circle.
+ */
 export default function MohrCircles({
   sigma1,
   sigma2,
   sigma3,
   className,
 }: MohrCirclesProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const boardRef = useRef<ReturnType<typeof JXG.JSXGraph.initBoard> | null>(
-    null,
-  );
+  const { containerRef, initBoard } = useJsxGraphBoard();
+
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Clean up previous board
-    if (boardRef.current) {
-      JXG.JSXGraph.freeBoard(boardRef.current);
-      boardRef.current = null;
-    }
-
-    const labelColor = "#1e293b";
-    const axisColor = "#64748b";
-    const bgColor = "#ffffff";
-
     const maxAbs = Math.max(
       Math.abs(sigma1),
       Math.abs(sigma2),
@@ -45,24 +44,16 @@ export default function MohrCircles({
     const yMax = tauMaxY + 0.5;
     const yMin = -yMax;
 
-    // Set background color on container
-    containerRef.current.style.backgroundColor = bgColor;
-
-    const board = JXG.JSXGraph.initBoard(containerRef.current, {
+    const board = initBoard({
       boundingbox: [xMin, yMax, xMax, yMin] as [number, number, number, number],
       axis: false,
       grid: false,
-      showCopyright: false,
-      showNavigation: false,
-      pan: { enabled: false },
-      zoom: { wheel: false },
       keepAspectRatio: true,
+      zoom: { wheel: false },
     });
+    if (!board) return;
 
-    boardRef.current = board;
-
-    // --- Draw axes manually ---
-    // sigma-axis
+    // σ-axis (horizontal)
     board.create(
       "axis",
       [
@@ -70,14 +61,14 @@ export default function MohrCircles({
         [xMax + padding * 0.2, 0],
       ],
       {
-        strokeColor: axisColor,
+        strokeColor: JSXGRAPH_THEME.axisColor,
         strokeWidth: 1.5,
         lastArrow: true,
         fixed: true,
       },
     );
 
-    // tau-axis
+    // τ-axis (vertical)
     board.create(
       "axis",
       [
@@ -85,7 +76,7 @@ export default function MohrCircles({
         [0, yMax + padding * 0.2],
       ],
       {
-        strokeColor: axisColor,
+        strokeColor: JSXGRAPH_THEME.axisColor,
         strokeWidth: 1.5,
         lastArrow: true,
         fixed: true,
@@ -95,25 +86,26 @@ export default function MohrCircles({
     // Axis labels
     board.create("text", [xMax, -padding * 0.3, tex("\\sigma")], {
       display: "html",
-      color: labelColor,
+      color: JSXGRAPH_THEME.labelColor,
       fixed: true,
       anchorX: "right",
       anchorY: "top",
     });
     board.create("text", [padding * 0.2, yMax, tex("\\tau")], {
       display: "html",
-      color: labelColor,
+      color: JSXGRAPH_THEME.labelColor,
       fixed: true,
       anchorX: "left",
       anchorY: "middle",
     });
 
+    // ── 3. Zero stress state guard ───────────────────────────────────
     const zeroStress = sigma1 === 0 && sigma2 === 0 && sigma3 === 0;
 
     if (zeroStress) {
       board.create("text", [0, 0, "Zero stress state"], {
         fontSize: 18,
-        color: labelColor,
+        color: JSXGRAPH_THEME.labelColor,
         fixed: true,
         anchorX: "middle",
         anchorY: "middle",
@@ -183,7 +175,7 @@ export default function MohrCircles({
       });
       board.create("text", [p.val, -yValOff, p.val.toFixed(2)], {
         fontSize: 10,
-        color: axisColor,
+        color: JSXGRAPH_THEME.axisColor,
         fixed: true,
         anchorX: "middle",
         anchorY: "top",
@@ -210,7 +202,7 @@ export default function MohrCircles({
       [tmX + padding * 0.08, tmY - padding * 0.04, tmY.toFixed(2)],
       {
         fontSize: 10,
-        color: axisColor,
+        color: JSXGRAPH_THEME.axisColor,
         fixed: true,
         anchorX: "left",
         anchorY: "top",
@@ -218,18 +210,11 @@ export default function MohrCircles({
     );
 
     // --- Hover interaction: show tooltip with circle point coordinates ---
-    const coordTooltip = board.create("text", [1e10, 1e10, ""], {
-      display: "html",
-      fontSize: 15,
-      color: "#334155",
-      fixed: true,
-      anchorX: "left",
-      anchorY: "bottom",
-    });
+    const tooltipEl = createTooltip(board);
 
-    const threshold = padding * 0.04;
+    const threshold = (xMax - xMin) * TOOLTIP_THRESHOLD_FACTOR;
 
-    board.on("move", (e: Event) => {
+    const handleMove = (e: Event) => {
       const evt = e as PointerEvent;
       const [ux, uy] = board.getUsrCoordsOfMouse(evt);
 
@@ -249,29 +234,27 @@ export default function MohrCircles({
 
           const tooltipX = px + padding * 0.04;
           const tooltipY = py + padding * 0.04;
-          const tooltipStr = tex(
-            `(\\sigma, \\tau) = (${px.toFixed(2)}, ${py.toFixed(2)})`,
-          );
-          coordTooltip.setPosition(JXG.COORDS_BY_USER, [tooltipX, tooltipY]);
-          coordTooltip.setText(tooltipStr);
+          const tooltipStr = `(${px.toFixed(2)}, ${py.toFixed(2)})`;
+          showTooltip(tooltipEl, tooltipX, tooltipY, tooltipStr);
           found = true;
           break;
         }
       }
 
       if (!found) {
-        coordTooltip.setPosition(JXG.COORDS_BY_USER, [1e10, 1e10]);
-        coordTooltip.setText("");
+        hideTooltip(tooltipEl);
       }
-    });
+    };
 
-    board.on("out", () => {
-      coordTooltip.setPosition(JXG.COORDS_BY_USER, [1e10, 1e10]);
-      coordTooltip.setText("");
-    });
+    const handleOut = () => {
+      hideTooltip(tooltipEl);
+    };
+
+    board.on("move", handleMove);
+    board.on("out", handleOut);
 
     board.update();
-  }, [sigma1, sigma2, sigma3]);
+  }, [sigma1, sigma2, sigma3, initBoard]);
 
   return (
     <div

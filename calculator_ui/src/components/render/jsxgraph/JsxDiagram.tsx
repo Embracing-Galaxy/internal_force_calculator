@@ -1,8 +1,13 @@
-import JXG from "jsxgraph";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import type { DataPoint } from "@/services";
 import { getBoundingBox, JSXGRAPH_THEME } from "./jsxgraphTheme";
+import {
+  createTooltip,
+  hideTooltip,
+  showTooltip,
+  TOOLTIP_THRESHOLD_FACTOR,
+} from "./jsxgraphTooltip";
 import { useJsxGraphBoard } from "./useJsxGraphBoard";
 
 interface JsxDiagramProps {
@@ -14,8 +19,6 @@ interface JsxDiagramProps {
   yValueReversed?: boolean;
   className?: string;
 }
-
-const TOOLTIP_THRESHOLD_FACTOR = 0.03;
 
 export default function JsxDiagram({
   data,
@@ -35,12 +38,10 @@ export default function JsxDiagram({
     const board = initBoard();
     if (!board) return;
 
-    // ── 1. Data preprocessing ──────────────────────────────────────────
     const sorted = data
       .map((d) => ({ x: d.x, value: yValueReversed ? -d.value : d.value }))
       .sort((a, b) => a.x - b.x);
 
-    // ── 2. Bounding box ────────────────────────────────────────────────
     const [xMin, yMax, xMax, yMin] =
       sorted.length > 0
         ? getBoundingBox(sorted, 0, beamLen)
@@ -52,7 +53,7 @@ export default function JsxDiagram({
 
     const yRange = yMax - yMin;
 
-    // ── 3. X axis (at y = 0) ──────────────────────────────────────────
+    // X-axis (at y = 0)
     const xAxisEnd = beamLen + yRange * 0.03;
     const xAxis = board.create(
       "axis",
@@ -68,7 +69,7 @@ export default function JsxDiagram({
       },
     );
 
-    // ── 4. Y axis (at x = 0) ──────────────────────────────────────────
+    // Y-axis (at x = 0)
     // Arrow points in the direction of positive value.
     // When yValueReversed, positive values are rendered downward,
     // so the arrow should point down as well.
@@ -92,7 +93,7 @@ export default function JsxDiagram({
       },
     );
 
-    // ── 5. Grid (requires x/y axes as parents) ────────────────────────
+    //Grid (requires x/y axes as parents)
     board.create("grid", [xAxis, yAxis], {
       majorStep: [10, 8],
       strokeColor: JSXGRAPH_THEME.gridColor,
@@ -100,7 +101,7 @@ export default function JsxDiagram({
       fixed: true,
     });
 
-    // ── 6. Axis labels ─────────────────────────────────────────────────
+    // Axis labels
     // X-axis label at the right end
     board.create("text", [beamLen, yMin - yRange * 0.06, xLabel], {
       display: "html",
@@ -119,7 +120,7 @@ export default function JsxDiagram({
       anchorY: "middle",
     });
 
-    // ── 7. Zero reference line (y = 0) ─────────────────────────────────
+    // Zero reference line (y = 0)
     board.create(
       "line",
       [
@@ -134,7 +135,7 @@ export default function JsxDiagram({
       },
     );
 
-    // ── 8. Data curve ──────────────────────────────────────────────────
+    // Data curve
     if (sorted.length > 1) {
       const xs = sorted.map((d) => d.x);
       const ys = sorted.map((d) => d.value);
@@ -154,15 +155,8 @@ export default function JsxDiagram({
       });
     }
 
-    // ── 9. Tooltip ─────────────────────────────────────────────────────
-    const tooltipEl = board.create("text", [1e10, 1e10, ""], {
-      display: "html",
-      fontSize: 14,
-      color: "#334155",
-      fixed: true,
-      anchorX: "left",
-      anchorY: "bottom",
-    });
+    // Tooltip (shared text element for hover display)
+    const tooltipEl = createTooltip(board);
 
     const threshold = beamLen * TOOLTIP_THRESHOLD_FACTOR;
 
@@ -190,17 +184,19 @@ export default function JsxDiagram({
         const tooltipX = pt.x + yRng * 0.02;
         const tooltipY = pt.value + yRng * 0.02;
 
-        tooltipEl.setPosition(JXG.COORDS_BY_USER, [tooltipX, tooltipY]);
-        tooltipEl.setText(`x = ${pt.x.toFixed(2)}, y = ${pt.value.toFixed(2)}`);
+        showTooltip(
+          tooltipEl,
+          tooltipX,
+          tooltipY,
+          `(${pt.x.toFixed(2)}, ${pt.value.toFixed(2)})`,
+        );
       } else {
-        tooltipEl.setPosition(JXG.COORDS_BY_USER, [1e10, 1e10]);
-        tooltipEl.setText("");
+        hideTooltip(tooltipEl);
       }
     };
 
     const handleOut = () => {
-      tooltipEl.setPosition(JXG.COORDS_BY_USER, [1e10, 1e10]);
-      tooltipEl.setText("");
+      hideTooltip(tooltipEl);
     };
 
     board.on("move", handleMove);
@@ -213,7 +209,6 @@ export default function JsxDiagram({
     <div
       ref={containerRef}
       className={cn("w-full h-full overflow-hidden rounded-md", className)}
-      style={{ backgroundColor: JSXGRAPH_THEME.bgColor }}
     />
   );
 }

@@ -1,7 +1,6 @@
 export const JSXGRAPH_THEME = {
   labelColor: "#1e293b",
   axisColor: "#64748b",
-  bgColor: "#ffffff",
   gridColor: "#e2e8f0",
   referenceColor: "#94a3b8",
   zeroLineColor: "#1e293b",
