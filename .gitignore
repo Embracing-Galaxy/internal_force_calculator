@@ -20,5 +20,5 @@ calculator_wasm/pkg/
 # AI
 **/.opencode/
 **/AGENTS.md
-**/.sisyphus/
+**/.omo/
 **/skills-lock.json
