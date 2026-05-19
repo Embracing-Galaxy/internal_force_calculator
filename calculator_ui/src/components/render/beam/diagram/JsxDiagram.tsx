@@ -1,14 +1,17 @@
 import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
-import type { DataPoint } from "@/services";
-import { getBoundingBox, JSXGRAPH_THEME } from "./jsxgraphTheme";
+import {
+  getBoundingBox,
+  JSXGRAPH_THEME,
+} from "@/components/render/jsxgraph/jsxgraphTheme";
 import {
   createTooltip,
   hideTooltip,
   showTooltip,
   TOOLTIP_THRESHOLD_FACTOR,
-} from "./jsxgraphTooltip";
-import { useJsxGraphBoard } from "./useJsxGraphBoard";
+} from "@/components/render/jsxgraph/jsxgraphTooltip";
+import { useJsxGraphBoard } from "@/components/render/jsxgraph/useJsxGraphBoard";
+import { cn } from "@/lib/utils";
+import type { DataPoint } from "@/services";
 
 interface JsxDiagramProps {
   data: DataPoint[];

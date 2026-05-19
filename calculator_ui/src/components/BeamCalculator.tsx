@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import BeamCanvas from "@/components/render/beam/BeamCanvas";
-import BendingMomentDiagram from "@/components/render/beam/BendingMomentDiagram";
-import ShearForceDiagram from "@/components/render/beam/ShearForceDiagram";
+import BendingMomentDiagram from "@/components/render/beam/diagram/BendingMomentDiagram";
+import ShearForceDiagram from "@/components/render/beam/diagram/ShearForceDiagram";
 import BeamSettingsBar from "@/components/settings/beam/BeamSettingsBar";
 import {
   ResizableHandle,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import JsxDiagram from "@/components/render/jsxgraph/JsxDiagram";
 import { JSXGRAPH_THEME } from "@/components/render/jsxgraph/jsxgraphTheme";
 import { calculatorService, type DataPoint, type LoadTypeRS } from "@/services";
+import JsxDiagram from "./JsxDiagram";
 
 interface BendingMomentDiagramProps {
   beamLen: number;
