@@ -21,6 +21,7 @@ updates:
           - "*"
     ignore:
       - dependency-name: "calculator_wasm"
+      - dependency-name: "@biomejs/biome"
 
   # Maintain GitHub Actions
   - package-ecosystem: "github-actions"
