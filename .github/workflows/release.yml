@@ -82,7 +82,7 @@ jobs:
         with:
           version: 10
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: 'pnpm'
@@ -94,7 +94,7 @@ jobs:
           targets: ${{ matrix.target }}, wasm32-unknown-unknown
 
       - name: Setup WASM
-        uses: taiki-e/install-action@v2
+        uses: taiki-e/install-action@v2.85.4
         with:
           tool: wasm-bindgen,wasm-pack
 
